@@ -4,19 +4,6 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-// Enum definitions
-enum OrderStatus {
-    PENDING, PROCESSING, SHIPPED, DELIVERED, CANCELLED, REFUNDED
-}
-
-enum PaymentMethod {
-    CREDIT_CARD, DEBIT_CARD, PAYPAL
-}
-
-enum TransactionStatus {
-    PENDING, SUCCESS, FAILED, REFUNDED
-}
-
 // Customer class
 class Customer {
     private String customerId;
