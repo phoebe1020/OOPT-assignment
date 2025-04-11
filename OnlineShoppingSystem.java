@@ -79,6 +79,33 @@ class Product {
     public int getStock() {
         return stock;
     }
+    public String getname() {
+        return name;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public String getSeller() {
+        return seller;
+    }
+    public void setPrice(double price) {
+        this.price = price;
+    }
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public void setSeller(String seller) {
+        this.seller = seller;
+    }
 }
 
 // Order Item class
@@ -147,29 +174,31 @@ class Order {
     }
 
     // Cancel/refund methods
-}
-
-// Payment class
-class Payment {
-    private String paymentId;
-    private String orderId;
-    private double amount;
-    private PaymentMethod method;
-    private TransactionStatus status;
-    private LocalDateTime paymentDate;
-
-    public Payment(String orderId, double amount) {
-        this.paymentId = UUID.randomUUID().toString();
-        this.orderId = orderId;
-        this.amount = amount;
-        this.status = TransactionStatus.PENDING;
-        this.paymentDate = LocalDateTime.now();
+    public void returnOrder() {
+        if (status == OrderStatus.PROCESSING) {
+            this.status = OrderStatus.RETURNED;
+            refundPayment();
+        }
+    }
+    public void cancelOrder() {
+        if (status == OrderStatus.PROCESSING) {
+            this.status = OrderStatus.CANCELLED;
+            refundPayment();
+        }
     }
 
-    public boolean processPayment() {
-        // Simulate payment processing
-        this.status = TransactionStatus.SUCCESS;
-        return true;
+    private void refundPayment() {
+        // Simulate refund process
+        this.status = OrderStatus.REFUNDED;
+    }
+
+    // Getters
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public List<OrderItem> getItems() {
+        return items;
     }
 }
 
@@ -228,18 +257,60 @@ public class OnlineShoppingSystem {
     }
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         clearScreen();
         logo();
+
         // Create products
-        Product laptop = new Product("P1", "Laptop", "High-end gaming laptop", 1500.00, 10, "TechCorp");
-        Product phone = new Product("P2", "Phone", "Flagship smartphone", 999.99, 20, "MobileInc");
+        Product crybaby = new Product("P1", "Crybaby", "Always fucking cry's baby", 1500.00, 10, "Popmart");
+        Product labubu = new Product("P2", "Labubu", "Just a moster..", 999.99, 20, "Popmart");
+        Product cinnamoroll = new Product("P3", "Cinnamoroll", "Cute little baby", 499.99, 15, "Sanrio");
+        Product hellokitty = new Product("P4", "Hello Kitty", "A cat like human", 299.99, 30, "Sanrio");
+
+        System.out.println("Available Products:");
+        System.out.printf("%-10s %-20s %-10s\n", "Product ID", "Name", "Price (USD)");
+        System.out.printf("%-10s %-20s %-10s\n", crybaby.getProductId(), crybaby.getname(), crybaby.getPrice());
+        System.out.printf("%-10s %-20s %-10s\n", labubu.getProductId(), labubu.getname(), labubu.getPrice());
+        System.out.printf("%-10s %-20s %-10s\n", cinnamoroll.getProductId(), cinnamoroll.getname(), cinnamoroll.getPrice());
+        System.out.printf("%-10s %-20s %-10s\n", hellokitty.getProductId(), hellokitty.getname(), hellokitty.getPrice());
+        System.out.println("5. Exit");
+        System.out.print("Select a product to add to cart (1-5): ");
+        int choice = scanner.nextInt();
+        while (choice != 5) {
+            switch (choice) {
+                case 1:
+                    System.out.println("You selected Crybaby.");
+                    break;
+                case 2:
+                    System.out.println("You selected Labubu.");
+                    break;
+                case 3:
+                    System.out.println("You selected Cinnamoroll.");
+                    break;
+                case 4:
+                    System.out.println("You selected Hello Kitty.");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+            System.out.print("Select a product to add to cart (1-5): ");
+            choice = scanner.nextInt();
+        }
+        System.out.println("Exiting the product selection.");
+
 
         // Create customer
         Customer customer = new Customer("C1", "John Doe", "john@example.com", "555-1234", "123 Main St");
 
         // Add items to cart
-        customer.addToCart(laptop, 1);
-        customer.addToCart(phone, 2);
+        System.out.println("Adding items to cart...");
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter quantity for Crybaby: ");
+        int crybabyQuantity = input.nextInt();
+        customer.addToCart(crybaby, crybabyQuantity);
+        System.out.print("Enter quantity for Labubu: ");
+        int labubuQuantity = input.nextInt();
+        customer.addToCart(labubu, labubuQuantity);
 
         // Place order
         customer.placeOrder();
