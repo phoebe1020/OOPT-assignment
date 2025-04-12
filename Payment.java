@@ -1,9 +1,12 @@
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 // Payment class
 public class Payment {
     private String paymentId;
     private String orderId;
     private double amount;
-    private PaymentMethod method;
+    private PaymentMethod method; // Represents the payment method (e.g., CREDIT_CARD, PAYPAL)
     private TransactionStatus status;
     private LocalDateTime paymentDate;
 
@@ -13,6 +16,21 @@ public class Payment {
         this.amount = amount;
         this.status = TransactionStatus.PENDING;
         this.paymentDate = LocalDateTime.now();
+    }
+    
+    // Enum to represent transaction statuses
+    enum TransactionStatus {
+        PENDING,
+        SUCCESS,
+        FAILED
+    }
+
+    // Enum to represent payment methods
+    enum PaymentMethod {
+        CREDIT_CARD,
+        DEBIT_CARD,
+        PAYPAL,
+        BANK_TRANSFER
     }
 
     public boolean processPayment() {

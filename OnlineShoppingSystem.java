@@ -1,5 +1,3 @@
-package ass;
-
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -42,6 +40,63 @@ class Customer {
 
     public String getAddress() {
         return address;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public String getName() {
+        return name;
+    }
+    public String getPhone() {
+        return phone;
+    }
+    public ShoppingCart getCart() {
+        return cart;
+    }
+    public List<Order> getOrderHistory() {
+        return orderHistory;
+    }
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    public void setCart(ShoppingCart cart) {
+        this.cart = cart;
+    }
+    public void setOrderHistory(List<Order> orderHistory) {
+        this.orderHistory = orderHistory;
+    }
+    public void updateCart(ShoppingCart cart) {
+        this.cart = cart;
+    }
+    public void updateOrderHistory(List<Order> orderHistory) {
+        this.orderHistory = orderHistory;
+    }
+    public void updateCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+    public void updateName(String name) {
+        this.name = name;
+    }
+    public void updateEmail(String email) {
+        this.email = email;
+    }
+    public void updatePhone(String phone) {
+        this.phone = phone;
+    }
+    public void updateAddress(String address) {
+        this.address = address;
     }
 }
 
@@ -129,6 +184,15 @@ class OrderItem {
     public int getQuantity() {
         return quantity;
     }
+}
+
+// Enum for Order Status
+enum OrderStatus {
+    PENDING,
+    PROCESSING,
+    CANCELLED,
+    RETURNED,
+    REFUNDED
 }
 
 // Order class
@@ -314,6 +378,10 @@ public class OnlineShoppingSystem {
 
         // Place order
         customer.placeOrder();
+        
+        scanner.close();
+        input.close();
+        System.out.println("Thank you! Have a nice day!");
     }
-
+    
 }
