@@ -21,4 +21,25 @@ public class ShoppingCart {
     public void clear() {
         items.clear();
     }
+    
+    public void viewCart() {
+        if (items.isEmpty()) {
+            System.out.println("Your cart is empty.");
+            return;
+        }
+    
+        System.out.printf("%-20s %-10s %-10s %-10s\n", "Product", "Price", "Qty", "Total");
+        double grandTotal = 0.0;
+        for (Map.Entry<Product, Integer> entry : items.entrySet()) {
+            Product product = entry.getKey();
+            int quantity = entry.getValue();
+            double total = product.getPrice() * quantity;
+            grandTotal += total;
+    
+            System.out.printf("%-20s %-10.2f %-10d %-10.2f\n",
+                    product.getProductName(), product.getPrice(), quantity, total);
+        }
+        System.out.println("--------------------------------------------------");
+        System.out.printf("Total Amount: RM %.2f\n", grandTotal);
+    }
 }

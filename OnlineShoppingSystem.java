@@ -25,7 +25,6 @@ public class OnlineShoppingSystem {
         logo();
         
         while (true) {
-            System.out.println("Main Menu:");
             System.out.println("1. Login");
             System.out.println("2. Exit");
             System.out.print("Choose an option: ");
@@ -68,62 +67,92 @@ public class OnlineShoppingSystem {
         
         // Create customer
         Customer customer = new Customer("C1", "John Doe", "john@example.com", "555-1234", "123 Main St");
-        
-        // Product selection loop
-        boolean continueShopping = true;
-        while (continueShopping) {
-            System.out.println("\nAvailable Products:");
-            System.out.printf("%-10s %-20s %-10s\n", "Product ID", "Name", "Price (USD)");
-            System.out.printf("%-10s %-20s %-10.2f\n", crybaby.getProductID(), crybaby.getProductName(), crybaby.getPrice());
-            System.out.printf("%-10s %-20s %-10.2f\n", labubu.getProductID(), labubu.getProductName(), labubu.getPrice());
-            System.out.printf("%-10s %-20s %-10.2f\n", cinnamoroll.getProductID(), cinnamoroll.getProductName(), cinnamoroll.getPrice());
-            System.out.printf("%-10s %-20s %-10.2f\n", hellokitty.getProductID(), hellokitty.getProductName(), hellokitty.getPrice());
-            System.out.println("5. Exit");
-        
-            System.out.print("Select a product to add to cart (1-5): ");
-            int choice = scanner.nextInt();
-        
-            switch (choice) {
-                case 1:
-                    System.out.print("Enter quantity for Crybaby: ");
-                    int crybabyQty = scanner.nextInt();
-                    customer.addToCart(crybaby, crybabyQty);
-                    break;
-                case 2:
-                    System.out.print("Enter quantity for Labubu: ");
-                    int labubuQty = scanner.nextInt();
-                    customer.addToCart(labubu, labubuQty);
-                    break;
-                case 3:
-                    System.out.print("Enter quantity for Cinnamoroll: ");
-                    int cinnaQty = scanner.nextInt();
-                    customer.addToCart(cinnamoroll, cinnaQty);
-                    break;
-                case 4:
-                    System.out.print("Enter quantity for Hello Kitty: ");
-                    int kittyQty = scanner.nextInt();
-                    customer.addToCart(hellokitty, kittyQty);
-                    break;
-                case 5:
-                    continueShopping = false;
-                    continue;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-                    continue;
+        boolean running = true;
+while (running) {
+    System.out.println("\n--- POP MART MENU ---");
+    System.out.println("1. Order Products");
+    System.out.println("2. View Cart");
+    System.out.println("3. Exit");
+    System.out.print("Choose an option: ");
+    int mainChoice = scanner.nextInt();
+
+    switch (mainChoice) {
+        case 1: // === Order Products ===
+            boolean continueShopping = true;
+            while (continueShopping) {
+                System.out.println("\nAvailable Products:");
+                System.out.printf("%-10s %-20s %-10s\n", "Product ID", "Name", "Price (USD)");
+                System.out.printf("%-10s %-20s %-10.2f\n", crybaby.getProductID(), crybaby.getProductName(), crybaby.getPrice());
+                System.out.printf("%-10s %-20s %-10.2f\n", labubu.getProductID(), labubu.getProductName(), labubu.getPrice());
+                System.out.printf("%-10s %-20s %-10.2f\n", cinnamoroll.getProductID(), cinnamoroll.getProductName(), cinnamoroll.getPrice());
+                System.out.printf("%-10s %-20s %-10.2f\n", hellokitty.getProductID(), hellokitty.getProductName(), hellokitty.getPrice());
+                System.out.println("5. Back to Menu");
+
+                System.out.print("Select a product to add to cart (1-5): ");
+                int choice = scanner.nextInt();
+
+                switch (choice) {
+                    case 1:
+                        System.out.println("You selected Crybaby.");
+                        System.out.print("Enter quantity: ");
+                        customer.addToCart(crybaby, scanner.nextInt());
+                        break;
+                    case 2:
+                        System.out.println("You selected Labubu.");
+                        System.out.print("Enter quantity: ");
+                        customer.addToCart(labubu, scanner.nextInt());
+                        break;
+                    case 3:
+                        System.out.println("You selected Cinnamoroll.");
+                        System.out.print("Enter quantity: ");
+                        customer.addToCart(cinnamoroll, scanner.nextInt());
+                        break;
+                    case 4:
+                        System.out.println("You selected Hello Kitty.");
+                        System.out.print("Enter quantity: ");
+                        customer.addToCart(hellokitty, scanner.nextInt());
+                        break;
+                    case 5:
+                        continueShopping = false;
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                }
+
+                if (choice >= 1 && choice <= 4) {
+                    System.out.print("Do you want to continue shopping? (Y/N): ");
+                    scanner.nextLine(); // consume newline
+                    String response = scanner.nextLine();
+                    if (!response.equalsIgnoreCase("yes")) {
+                        continueShopping = false;
+                    }
+                }
             }
-        
-            System.out.print("Do you want to continue shopping? (Y/N): ");
-            String response = scanner.next().toLowerCase();
-            if (!response.equals("yes")) {
-                continueShopping = false;
+            break;
+
+        case 2: // === View Cart ===
+            System.out.println("\n--- Your Cart ---");
+            customer.viewCart(); // You should implement this method
+            System.out.print("Do you want to proceed to payment? (Y/N): ");
+            scanner.nextLine(); // consume newline
+            String confirm = scanner.nextLine();
+            if (confirm.equalsIgnoreCase("yes")) {
+                customer.placeOrder();
+                running = false;
             }
-        }
-        
-        // Place order
-        System.out.println("\nPlacing your order...");
-        customer.placeOrder();
-        
-        scanner.close();
+            break;
+
+        case 3: // === Exit ===
+            System.out.println("Thank you for visiting POP MART. Goodbye!");
+            running = false;
+            break;
+
+        default:
+            System.out.println("Invalid option. Try again.");
+    }
+}
+
+         scanner.close();
         System.out.println("Thank you! Have a nice day!");
     }
 }

@@ -97,6 +97,10 @@ public class Customer {
         this.address = address;
     }
 
+    public void viewCart() {
+        cart.viewCart();
+    }
+
     public void clearCart() {
         cart.clear();
     }
