@@ -68,16 +68,17 @@ public class OnlineShoppingSystem {
         // Create customer
         Customer customer = new Customer("C1", "John Doe", "john@example.com", "555-1234", "123 Main St");
         boolean running = true;
-while (running) {
-    System.out.println("\n--- POP MART MENU ---");
-    System.out.println("1. Order Products");
-    System.out.println("2. View Cart");
-    System.out.println("3. Exit");
-    System.out.print("Choose an option: ");
-    int mainChoice = scanner.nextInt();
 
-    switch (mainChoice) {
-        case 1: // === Order Products ===
+     while (running) {
+         System.out.println("\n--- POP MART MENU ---");
+         System.out.println("1. Order Products");
+         System.out.println("2. View Cart");
+         System.out.println("3. Exit");
+         System.out.print("Choose an option: ");
+         int mainChoice = scanner.nextInt();
+
+         switch (mainChoice) {
+         case 1: // === Order Products ===
             boolean continueShopping = true;
             while (continueShopping) {
                 System.out.println("\nAvailable Products:");
