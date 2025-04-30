@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
 
 // Main class//////////////////////////////////////////////////////////////////////
 public class OnlineShoppingSystem {
@@ -82,7 +85,7 @@ public class OnlineShoppingSystem {
 
                             switch (adminChoice) {
                                 case 1:
-                                    System.out.println("Managing products...");
+                                    manageProductMenu();
                                  
                                     break;
 
@@ -220,7 +223,21 @@ public class OnlineShoppingSystem {
             }
         }
 
+       
+
         scanner.close();
         System.out.println("Thank you! Have a nice day!");
     }
+
+    private static void manageProductMenu (){
+        System.out.println("Managing products...");
+        System.out.println("1. Add Product");
+        System.out.println("2. Update Product");
+        System.out.println("3. Delete Product");
+        System.out.println("4. View Products");
+        System.out.print("Choose an option: ");
+        
+    }
+
+    
 }
