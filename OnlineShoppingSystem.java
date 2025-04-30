@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 // Main class//////////////////////////////////////////////////////////////////////
 public class OnlineShoppingSystem {
+    public static List<Order> orderList = new ArrayList<>(); 
+
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -34,10 +36,13 @@ public class OnlineShoppingSystem {
         logo();
 
         while (true) {
-            System.out.println("1. Login as user");
-            System.out.println("2. Login as admin");
-            System.out.println("3. Exit");
-            System.out.print("Choose an option: ");
+            clearScreen();
+            logo();
+
+            System.out.println("=== POP MART ===");
+
+            
+            loginMenu();
             int menuChoice = scanner.nextInt();
             scanner.nextLine(); // consume newline
 
@@ -89,13 +94,12 @@ public class OnlineShoppingSystem {
                                     break;
 
                                 case 2:
-                                    System.out.println("Viewing orders...");
+                                    displayOrderList();
                                     break;
 
                                 case 3:
                                     System.out.println("Logging out...");
-                                    adminRunning = false;
-                                    break;
+                                    return;
 
                                 default:
                                     System.out.println("Invalid option. Please try again.");
@@ -235,24 +239,25 @@ public class OnlineShoppingSystem {
                     System.out.print("Do you want to proceed to payment? (Y/N): ");
                     scanner.nextLine(); // consume newline
                     String confirm = scanner.nextLine();
-                    if (confirm.equalsIgnoreCase("yes")) {
+                    if (confirm.equalsIgnoreCase("y")) {
                         customer.placeOrder();
-                        running = false;
+                        
                     }
-                    break;
+                  break;
 
                 case 3: // === Exit ===
                     System.out.println("Thank you for visiting POP MART. Goodbye!");
-                    running = false;
-                    break;
+                   
 
                 default:
                     System.out.println("Invalid option. Try again.");
             }
         }
 
-        scanner.close();
         System.out.println("Thank you! Have a nice day!");
+        
+        running = false;
+        scanner.close();
     }
 
     private static void manageProductMenu() {
@@ -264,5 +269,27 @@ public class OnlineShoppingSystem {
         System.out.print("Choose an option: ");
 
     }
+
+    private static void displayOrderList() {
+        if (orderList.isEmpty()) {
+            System.out.println("No orders have been placed yet.");
+            return;
+        }
+    
+        System.out.println("\n--- Order List ---");
+        for (Order order : orderList) {
+            System.out.println(order); // Uses the toString() method of the Order class
+            System.out.println("-------------------");
+        }
+    }
+
+    public static void loginMenu(){
+                System.out.println("1. Login as user");
+            System.out.println("2. Login as admin");
+            System.out.println("3. Exit");
+            System.out.print("Choose an option: ");
+     
+    }
+
 
 }
