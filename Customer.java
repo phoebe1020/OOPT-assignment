@@ -1,21 +1,12 @@
 import java.util.*;
 
 // Customer class
-public class Customer {
-    private String customerId;
-    private String name;
-    private String email;
-    private String phone;
-    private String address;
+public class Customer extends User {
     private ShoppingCart cart;
     private List<Order> orderHistory;
 
-    public Customer(String customerId, String name, String email, String phone, String address) {
-        this.customerId = customerId;
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
+    public Customer( String userId, String name, String email, String phone, String address) {
+        super(userId, name, email, phone, address);
         this.cart = new ShoppingCart();
         this.orderHistory = new ArrayList<>();
     }
@@ -32,43 +23,14 @@ public class Customer {
     }
 
     // Getters
-    public String getCustomerId() {
-        return customerId;
-    }
 
-    public String getAddress() {
-        return address;
-    }
-    public String getEmail() {
-        return email;
-    }
-    public String getName() {
-        return name;
-    }
-    public String getPhone() {
-        return phone;
-    }
     public ShoppingCart getCart() {
         return cart;
     }
     public List<Order> getOrderHistory() {
         return orderHistory;
     }
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-    public void setAddress(String address) {
-        this.address = address;
-    }
+   
     public void setCart(ShoppingCart cart) {
         this.cart = cart;
     }
@@ -81,22 +43,26 @@ public class Customer {
     public void updateOrderHistory(List<Order> orderHistory) {
         this.orderHistory = orderHistory;
     }
+   
     public void updateCustomerId(String customerId) {
-        this.customerId = customerId;
+        super.setUserId(customerId); 
     }
+    
     public void updateName(String name) {
-        this.name = name;
+        super.setName(name); 
     }
+    
     public void updateEmail(String email) {
-        this.email = email;
-    }
+        super.setEmail(email);
+    } 
+    
     public void updatePhone(String phone) {
-        this.phone = phone;
+        super.setPhone(phone);
     }
+    
     public void updateAddress(String address) {
-        this.address = address;
+        super.setAddress(address);
     }
-
     public void viewCart() {
         cart.viewCart();
     }
@@ -104,4 +70,10 @@ public class Customer {
     public void clearCart() {
         cart.clear();
     }
+
+    public String toString() {
+		return super.toString()+String.format("Customer [cart=%s, orderHistory=%s]", cart, orderHistory);
+				
+}
+
 }
