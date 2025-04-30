@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
 // Main class//////////////////////////////////////////////////////////////////////
 public class OnlineShoppingSystem {
     public static void clearScreen() {
@@ -30,7 +29,7 @@ public class OnlineShoppingSystem {
         admins[0] = new Admin("AMD001", "Xavier", "xavier@gmail.com", "011111111", "Meow Street", "Xavier123");
         admins[1] = new Admin("AMD002", "Zayne", "zayne@gmail.com", "022222222", "Lily Street", "Zayne123");
         admins[2] = new Admin("AMD003", "Rafayel", "rafayel@gmail.com", "033333333", "Jellyfish Street", "Rafayel123");
-        
+
         clearScreen();
         logo();
 
@@ -81,12 +80,12 @@ public class OnlineShoppingSystem {
                             System.out.println("3. Logout");
                             System.out.print("Choose an option: ");
                             int adminChoice = scanner.nextInt();
-                            scanner.nextLine(); 
+                            scanner.nextLine();
 
                             switch (adminChoice) {
                                 case 1:
                                     manageProductMenu();
-                                 
+
                                     break;
 
                                 case 2:
@@ -126,10 +125,14 @@ public class OnlineShoppingSystem {
         }
 
         // Create products
-Popmart crybaby = new Popmart("P1", "Crybaby", "Always crying baby", 1500.00, 10, "Popmart", "Exclusive Crybaby Edition");
-Popmart labubu = new Popmart("P2", "Labubu", "Just a monster..", 999.99, 20, "Popmart", "Limited Labubu Series");
-Sanrio cinnamoroll = new Sanrio("P3", "Cinnamoroll", "Cute little baby", 499.99, 15, "Sanrio", "Special Cinnamoroll Plush");
-Sanrio hellokitty = new Sanrio("P4", "Hello Kitty", "A cat-like human", 299.99, 30, "Sanrio", "Hello Kitty Anniversary Edition");
+        Popmart crybaby = new Popmart("P1", "Crybaby", "Always crying baby", 1500.00, 10, "Popmart",
+                "Exclusive Crybaby Edition");
+        Popmart labubu = new Popmart("P2", "Labubu", "Just a monster..", 999.99, 20, "Popmart",
+                "Limited Labubu Series");
+        Sanrio cinnamoroll = new Sanrio("P3", "Cinnamoroll", "Cute little baby", 499.99, 15, "Sanrio",
+                "Special Cinnamoroll Plush");
+        Sanrio hellokitty = new Sanrio("P4", "Hello Kitty", "A cat-like human", 299.99, 30, "Sanrio",
+                "Hello Kitty Anniversary Edition");
 
         // Create customer
         Customer customer = new Customer("C1", "John Doe", "john@example.com", "555-1234", "123 Main St");
@@ -223,21 +226,18 @@ Sanrio hellokitty = new Sanrio("P4", "Hello Kitty", "A cat-like human", 299.99, 
             }
         }
 
-       
-
         scanner.close();
         System.out.println("Thank you! Have a nice day!");
     }
 
-    private static void manageProductMenu (){
+    private static void manageProductMenu() {
         System.out.println("Managing products...");
         System.out.println("1. Add Product");
         System.out.println("2. Update Product");
         System.out.println("3. Delete Product");
         System.out.println("4. View Products");
         System.out.print("Choose an option: ");
-        
+
     }
 
-    
 }
