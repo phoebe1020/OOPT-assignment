@@ -37,13 +37,15 @@ public class User {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     public void setPhone(String phone) {
         this.phone = phone;
     }
@@ -51,27 +53,30 @@ public class User {
     public void setAddress(String address) {
         this.address = address;
     }
-  
 
     public void updateUserInfo(String name, String email, String phone, String address) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.address = address;
-}
+    }
 
     public void updateUserId(String userId) {
         this.userId = userId;
     }
+
     public void updateName(String name) {
         this.name = name;
     }
+
     public void updateEmail(String email) {
         this.email = email;
     }
+
     public void updatePhone(String phone) {
         this.phone = phone;
     }
+
     public void updateAddress(String address) {
         this.address = address;
     }
@@ -96,8 +101,8 @@ public class User {
     }
 
     public String toString() {
-		return String.format("Name: %s\nCustomerId: %d\nEmail: %d\nPhone: %d\nAddress:",
-				name,userId,email,phone,address);
-	}
-    
+        return String.format("Name: %s\nCustomerId: %d\nEmail: %d\nPhone: %d\nAddress:",
+                name, userId, email, phone, address);
+    }
+
 }

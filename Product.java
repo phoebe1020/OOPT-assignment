@@ -6,47 +6,47 @@ public class Product {
     private double price;
     private String description;
     private int stock;
-    private String seller;
+    private String brand;
+    private String series;
 
     // Parameterized constructor
-    public Product(String productID, String productName, String description, double price, int stock, String seller) {
+    public Product(String productID, String productName, String description, double price, int stock, String brand, String series) {
         this.productID = productID;
         this.productName = productName;
         this.price = price;
-
+        this.description = description;
+        this.stock = stock;
+        this.brand = brand;
+        this.series = series;
     }
     
     // Getter and Setter methods
-     public double getPrice() {
-        return price;
-    }
-
     public String getProductID() {
         return productID;
     }
-
-     public int getStock() {
-        return stock;
-    }
-
+     
     public String getProductName() {
         return productName;
+    }
+
+    public double getPrice() {
+        return price;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public String getSeller() {
-        return seller;
-    }
-    
-    public void setPrice(double price) {
-        this.price = price;
+    public int getStock() {
+        return stock;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getSeries() {
+        return series;
     }
 
     public void setProductID(String productID) {
@@ -56,12 +56,24 @@ public class Product {
         this.productName = productName;
     }
 
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setSeller(String seller) {
-        this.seller = seller;
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public void setSeries(String series) {
+        this.series = series;
     }
 
     public void updateStock(int quantity) {
