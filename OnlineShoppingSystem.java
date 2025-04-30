@@ -7,8 +7,16 @@ public class OnlineShoppingSystem {
     public static List<Order> orderList = new ArrayList<>(); 
 
     public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (Exception e) {
+            System.out.println("Error clearing screen: " + e.getMessage());
+        }
     }
 
     public static void logo() {
@@ -199,12 +207,13 @@ public class OnlineShoppingSystem {
                                     break;
 
                                 case 2:
-                                    displayOrderList();
+                                    
                                     break;
 
                                 case 3:
                                     System.out.println("Logging out...");
-                                    return;
+                                    adminRunning = false;
+                                    break;
 
                                 default:
                                     System.out.println("Invalid option. Please try again.");
