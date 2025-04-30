@@ -19,4 +19,12 @@ class OrderItem {
     public int getQuantity() {
         return quantity;
     }
+
+    
+    @Override
+    public String toString() {
+        return String.format("%s (Quantity: %d, Total: $%.2f)", 
+                product.getProductName(), quantity, getTotal());
+    }
 }
+

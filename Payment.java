@@ -35,6 +35,7 @@ public class Payment {
 
     public boolean processPayment() {
         // Simulate payment processing
+        System.out.println("Processing payment of RM " + amount + " for Order ID: " + orderId);
         this.status = TransactionStatus.SUCCESS;
         return true;
     }
@@ -74,4 +75,6 @@ public class Payment {
     public LocalDateTime getPaymentDate() {
         return paymentDate;
     }
+
+    
 }

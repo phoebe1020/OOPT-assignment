@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 // Main class//////////////////////////////////////////////////////////////////////
 public class OnlineShoppingSystem {
+    public static List<Order> orderList = new ArrayList<>(); 
+
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -197,13 +199,12 @@ public class OnlineShoppingSystem {
                                     break;
 
                                 case 2:
-                                    System.out.println("Viewing orders...");
+                                    displayOrderList();
                                     break;
 
                                 case 3:
                                     System.out.println("Logging out...");
-                                    adminRunning = false;
-                                    break;
+                                    return;
 
                                 default:
                                     System.out.println("Invalid option. Please try again.");
