@@ -123,10 +123,10 @@ public class OnlineShoppingSystem {
         }
 
         // Create products
-        Product crybaby = new Product("P1", "Crybaby", "Always fucking cry's baby", 1500.00, 10, "Popmart");
-        Product labubu = new Product("P2", "Labubu", "Just a monster..", 999.99, 20, "Popmart");
-        Product cinnamoroll = new Product("P3", "Cinnamoroll", "Cute little baby", 499.99, 15, "Sanrio");
-        Product hellokitty = new Product("P4", "Hello Kitty", "A cat like human", 299.99, 30, "Sanrio");
+Popmart crybaby = new Popmart("P1", "Crybaby", "Always crying baby", 1500.00, 10, "Popmart", "Exclusive Crybaby Edition");
+Popmart labubu = new Popmart("P2", "Labubu", "Just a monster..", 999.99, 20, "Popmart", "Limited Labubu Series");
+Sanrio cinnamoroll = new Sanrio("P3", "Cinnamoroll", "Cute little baby", 499.99, 15, "Sanrio", "Special Cinnamoroll Plush");
+Sanrio hellokitty = new Sanrio("P4", "Hello Kitty", "A cat-like human", 299.99, 30, "Sanrio", "Hello Kitty Anniversary Edition");
 
         // Create customer
         Customer customer = new Customer("C1", "John Doe", "john@example.com", "555-1234", "123 Main St");
