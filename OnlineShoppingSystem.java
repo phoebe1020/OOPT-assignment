@@ -151,17 +151,42 @@ public class OnlineShoppingSystem {
                     boolean continueShopping = true;
                     while (continueShopping) {
                         System.out.println("\nAvailable Products:");
-                        System.out.printf("%-10s %-20s %-10s\n", "Product ID", "Name", "Price (USD)");
-                        System.out.printf("%-10s %-20s %-10.2f\n", crybaby.getProductID(), crybaby.getProductName(),
-                                crybaby.getPrice());
-                        System.out.printf("%-10s %-20s %-10.2f\n", labubu.getProductID(), labubu.getProductName(),
-                                labubu.getPrice());
-                        System.out.printf("%-10s %-20s %-10.2f\n", cinnamoroll.getProductID(),
-                                cinnamoroll.getProductName(), cinnamoroll.getPrice());
-                        System.out.printf("%-10s %-20s %-10.2f\n", hellokitty.getProductID(),
-                                hellokitty.getProductName(), hellokitty.getPrice());
-                        System.out.println("5. Back to Menu");
+                        System.out.printf("%-10s %-20s %-15s %-15s %-20s\n", "Product ID", "Name", "Price (USD)",
+                                "Brand", "Exclusive Feature");
 
+                        // Display Crybaby
+                        System.out.printf("%-10s %-20s %-15.2f %-15s %-20s\n",
+                                crybaby.getProductID(),
+                                crybaby.getProductName(),
+                                crybaby.getPrice(),
+                                crybaby.getType(),
+                                crybaby.getPopmartExclusiveFeature());
+
+                        // Display Labubu
+                        System.out.printf("%-10s %-20s %-15.2f %-15s %-20s\n",
+                                labubu.getProductID(),
+                                labubu.getProductName(),
+                                labubu.getPrice(),
+                                labubu.getType(),
+                                labubu.getPopmartExclusiveFeature());
+
+                        // Display Cinnamoroll
+                        System.out.printf("%-10s %-20s %-15.2f %-15s %-20s\n",
+                                cinnamoroll.getProductID(),
+                                cinnamoroll.getProductName(),
+                                cinnamoroll.getPrice(),
+                                cinnamoroll.getType(),
+                                cinnamoroll.getSanrioSpecialEdition());
+
+                        // Display Hello Kitty
+                        System.out.printf("%-10s %-20s %-15.2f %-15s %-20s\n",
+                                hellokitty.getProductID(),
+                                hellokitty.getProductName(),
+                                hellokitty.getPrice(),
+                                hellokitty.getType(),
+                                hellokitty.getSanrioSpecialEdition());
+
+                        System.out.println("5. Back to Menu");
                         System.out.print("Select a product to add to cart (1-5): ");
                         int choice = scanner.nextInt();
 
