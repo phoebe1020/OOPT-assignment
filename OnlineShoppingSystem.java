@@ -101,6 +101,7 @@ public class OnlineShoppingSystem {
 
         // Pass the shared product list to ManageProduct
         ManageProduct manageProduct = new ManageProduct(products);
+        ManageCustomer manageCustomer = new ManageCustomer(customers);
         boolean mainMenuRunning = true;
 
         while (mainMenuRunning) {
@@ -379,7 +380,7 @@ public class OnlineShoppingSystem {
                             System.out.println("1. Manage Products");
                             System.out.println("2. Order list");
                             System.out.println("3. Admin List");
-                            System.out.println("4. Customer List");
+                            System.out.println("4. Manage Customers");
                             System.out.println("5. Logout");
                             System.out.print("Choose an option: ");
                             int adminChoice = scanner.nextInt();
@@ -407,11 +408,7 @@ public class OnlineShoppingSystem {
                                 break;
 
                                     case 4:
-                                        System.out.println("Customer List:");
-                                        for (Customer c : customers) {
-                                            System.out.println(c.toString());
-                                        }
-                                        System.out.println("-------------------");
+                                    manageCustomer.manageCustomerMenu();
                                         break; 
                                         
                                         case 5:
