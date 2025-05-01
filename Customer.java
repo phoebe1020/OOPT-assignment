@@ -1,3 +1,4 @@
+//Author: Melody Lee, Siow Wern Qin
 import java.util.*;
 
 // Customer class

@@ -1,4 +1,4 @@
-
+//Author: Lim Wan Yoke
 // Product class definition
 public class Product {
     private String productID;

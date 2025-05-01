@@ -1,3 +1,4 @@
+//Author: Melody Lee, Siow Wern Qin
 public class User {
     private String userId;
     private String name;
