@@ -20,11 +20,9 @@ class OrderItem {
         return quantity;
     }
 
-    
     @Override
     public String toString() {
-        return String.format("%s (Quantity: %d, Total: $%.2f)", 
+        return String.format("%s (Quantity: %d, Total: $%.2f)",
                 product.getProductName(), quantity, getTotal());
     }
 }
-

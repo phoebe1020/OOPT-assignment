@@ -2,7 +2,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-
 public class Order {
     private String orderId;
     private Customer customer;
@@ -11,7 +10,6 @@ public class Order {
     private OrderStatus status;
     private Payment payment;
     public static final double TAX_RATE = 0.10;
-
 
     public Order(Customer customer, List<OrderItem> items) {
         this.orderId = UUID.randomUUID().toString();
@@ -90,7 +88,7 @@ public class Order {
     }
 
     public double getTotalPriceWithTax() {
-        return calculateTotal() * (1 + TAX_RATE); 
+        return calculateTotal() * (1 + TAX_RATE);
     }
 
     public void setPayment(Payment payment) {
@@ -107,11 +105,12 @@ public class Order {
         sb.append("Items:\n");
         for (OrderItem item : items) {
             sb.append("  - ").append(item.getProduct().getProductName())
-              .append(" (Quantity: ").append(item.getQuantity())
-              .append(", Total: $").append(item.getTotal()).append(")\n");
+                    .append(" (Quantity: ").append(item.getQuantity())
+                    .append(", Total: $").append(item.getTotal()).append(")\n");
         }
-        sb.append("Total Price: $").append(String.format("%.2f",getTotalPrice()) ).append("\n");
-        sb.append("Total Price (include tax=10%): $").append(String.format("%.2f", getTotalPriceWithTax())).append("\n");
+        sb.append("Total Price: $").append(String.format("%.2f", getTotalPrice())).append("\n");
+        sb.append("Total Price (include tax=10%): $").append(String.format("%.2f", getTotalPriceWithTax()))
+                .append("\n");
 
         return sb.toString();
     }
@@ -126,10 +125,10 @@ public class Order {
             System.out.println("Order cannot be completed. Current status: " + status);
             return;
         }
-    
+
         double total = calculateTotal();
         this.payment = new Payment(this.orderId, total);
-    
+
         if (payment.processPayment()) {
             this.status = OrderStatus.COMPLETED;
             updateInventory();
@@ -137,6 +136,5 @@ public class Order {
         } else {
             System.out.println("Payment failed. Order not completed.");
         }
+    }
 }
-}
-

@@ -54,8 +54,8 @@ class ManageProduct {
         for (Product product : products) {
             if (product.getProductID().equals(productID)) {
                 System.out.println("Error: Product ID already exists. Please use a unique Product ID.");
-                addProduct(); 
-                return; 
+                addProduct();
+                return;
             }
         }
         System.out.print("Enter Product Name: ");

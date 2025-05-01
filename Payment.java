@@ -13,11 +13,11 @@ public class Payment {
     public Payment(String orderId, double amount) {
         this.paymentId = UUID.randomUUID().toString();
         this.orderId = orderId;
-        this.amount = amount; 
+        this.amount = amount;
         this.status = TransactionStatus.PENDING;
         this.paymentDate = LocalDateTime.now();
     }
-    
+
     // Enum to represent transaction statuses
     enum TransactionStatus {
         PENDING,
@@ -76,5 +76,4 @@ public class Payment {
         return paymentDate;
     }
 
-    
 }

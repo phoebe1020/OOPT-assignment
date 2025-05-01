@@ -97,7 +97,7 @@ public class OnlineShoppingSystem {
         products.add(
                 new Product("T4", "Howl", "A wizard with a heart", 499.99, 3, "Studio Ghibli",
                         "Howl's Moving Castle Edition"));
-        
+
         // Pass the shared product list to ManageProduct
         ManageProduct manageProduct = new ManageProduct(products);
         boolean mainMenuRunning = true;
