@@ -410,7 +410,7 @@ public class OnlineShoppingSystem {
                                     break;
 
                                     case 4:
-                                    manageCustomer.manageCustomerMenu()
+                                    manageCustomer.manageCustomerMenu();
                                     System.out.println("-------------------");
                                     System.out.println("Press Enter to return to the Admin Menu...");
                                     scanner.nextLine(); // Wait for Enter
