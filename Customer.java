@@ -15,24 +15,6 @@ public class Customer extends User {
         cart.addItem(product, quantity);
     }
 
-    // public void placeOrder() {
-    // if (cart.getItems().isEmpty()) {
-    // System.out.println("Your cart is empty. Please add items to your cart before
-    // placing an order.");
-    // return;
-    // }
-    // Order order = new Order(this, cart.getItems());
-    // //order.checkout();
-    // orderHistory.add(order);
-    // OnlineShoppingSystem.orderList.add(order); // Add to global order list
-
-    // order.completeOrder(); // Complete the order (process payment and update
-    // status)
-    // cart.clear();
-    // System.out.println("Order placed successfully! Order ID: " +
-    // order.getOrderId());
-    // }
-
     public void placeOrder() {
         if (cart.getItems().isEmpty()) {
             System.out.println("Your cart is empty. Please add items to your cart before placing an order.");
