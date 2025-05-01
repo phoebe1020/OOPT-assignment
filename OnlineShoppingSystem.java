@@ -147,7 +147,7 @@ public class OnlineShoppingSystem {
 
                                 if (choice >= 1 && choice <= 4) {
                                     System.out.print("Do you want to continue shopping? (Y/N): ");
-                                    scanner.nextLine(); // consume newline
+                                    scanner.nextLine();
                                     String response = scanner.nextLine();
                                     if (!response.equalsIgnoreCase("yes")) {
                                         continueShopping = false;
@@ -158,9 +158,9 @@ public class OnlineShoppingSystem {
 
                         case 2: // === View Cart ===
                             System.out.println("\n--- Your Cart ---");
-                            customer.viewCart(); // You should implement this method
+                            customer.viewCart(); 
                             System.out.print("Do you want to proceed to payment? (Y/N): ");
-                            scanner.nextLine(); // consume newline
+                            scanner.nextLine(); 
                             String confirm = scanner.nextLine();
                             if (confirm.equalsIgnoreCase("yes")) {
                                 customer.placeOrder();

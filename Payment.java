@@ -13,7 +13,7 @@ public class Payment {
     public Payment(String orderId, double amount) {
         this.paymentId = UUID.randomUUID().toString();
         this.orderId = orderId;
-        this.amount = amount;
+        this.amount = amount; 
         this.status = TransactionStatus.PENDING;
         this.paymentDate = LocalDateTime.now();
     }

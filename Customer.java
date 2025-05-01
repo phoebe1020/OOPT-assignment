@@ -15,11 +15,20 @@ public class Customer extends User {
         cart.addItem(product, quantity);
     }
 
+
     // public void placeOrder() {
+    //     if (cart.getItems().isEmpty()) {
+    //         System.out.println("Your cart is empty. Please add items to your cart before placing an order.");
+    //         return;
+    //     }
     //     Order order = new Order(this, cart.getItems());
-    //     order.checkout();
+    //     //order.checkout();
     //     orderHistory.add(order);
+    //     OnlineShoppingSystem.orderList.add(order); // Add to global order list
+
+    //     order.completeOrder(); // Complete the order (process payment and update status)
     //     cart.clear();
+    //     System.out.println("Order placed successfully! Order ID: " + order.getOrderId());
     // }
 
     public void placeOrder() {
@@ -27,13 +36,30 @@ public class Customer extends User {
             System.out.println("Your cart is empty. Please add items to your cart before placing an order.");
             return;
         }
+    
         Order order = new Order(this, cart.getItems());
-        //order.checkout();
         orderHistory.add(order);
-        OnlineShoppingSystem.orderList.add(order); // Add to global order list
-        order.completeOrder(); // Complete the order (process payment and update status)
-        cart.clear();
+        OnlineShoppingSystem.orderList.add(order); 
+    
+        double totalWithTax = order.getTotalPriceWithTax(); 
+        Payment payment = new Payment(order.getOrderId(), totalWithTax); 
+        order.setPayment(payment); 
+    
+        order.completeOrder(); 
+        cart.clear(); 
         System.out.println("Order placed successfully! Order ID: " + order.getOrderId());
+    }
+
+    public void viewOrderHistory() {
+        if (orderHistory.isEmpty()) {
+            System.out.println("No orders found in your history.");
+            return;
+        }
+
+        System.out.println("\n--- Order History ---");
+        for (Order order : orderHistory) {
+            System.out.println(order.getOrderSummary());
+        }
     }
 
     // Getters
@@ -84,11 +110,6 @@ public class Customer extends User {
     public void clearCart() {
         cart.clear();
     }
-
-//     public String toString() {
-// 		return super.toString()+String.format("Customer [cart=%s, orderHistory=%s]", cart, orderHistory);
-				
-// }
 
 
 @Override

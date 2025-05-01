@@ -10,6 +10,8 @@ public class Order {
     private LocalDateTime orderDate;
     private OrderStatus status;
     private Payment payment;
+    public static final double TAX_RATE = 0.10;
+
 
     public Order(Customer customer, List<OrderItem> items) {
         this.orderId = UUID.randomUUID().toString();
@@ -87,6 +89,14 @@ public class Order {
         return orderDate.format(formatter);
     }
 
+    public double getTotalPriceWithTax() {
+        return calculateTotal() * (1 + TAX_RATE); 
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -100,7 +110,9 @@ public class Order {
               .append(" (Quantity: ").append(item.getQuantity())
               .append(", Total: $").append(item.getTotal()).append(")\n");
         }
-        sb.append("Total Price: $").append(getTotalPrice()).append("\n");
+        sb.append("Total Price: $").append(String.format("%.2f",getTotalPrice()) ).append("\n");
+        sb.append("Total Price (include tax=10%): $").append(String.format("%.2f", getTotalPriceWithTax())).append("\n");
+
         return sb.toString();
     }
 
