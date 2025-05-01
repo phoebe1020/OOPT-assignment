@@ -262,7 +262,7 @@ public class OnlineShoppingSystem {
                             System.out.print("Do you want to proceed to payment? (Y/N): ");
                             scanner.nextLine(); // consume newline
                             String confirm = scanner.nextLine();
-                            if (confirm.equalsIgnoreCase("yes")) {
+                            if (confirm.equalsIgnoreCase("Y")) {
                                 loggedInCustomer.placeOrder();
                                 mainChoice = 0; // Reset mainChoice to avoid going back to the menu
                             }
