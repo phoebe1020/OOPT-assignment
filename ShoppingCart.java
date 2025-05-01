@@ -1,21 +1,27 @@
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShoppingCart {
-    private Map<Product, Integer> items;
+    private List<OrderItem> items;
 
     public ShoppingCart() {
-        this.items = new HashMap<>();
+        this.items = new ArrayList<>();
     }
 
     public void addItem(Product product, int quantity) {
-        items.put(product, items.getOrDefault(product, 0) + quantity);
+        // Check if the product already exists in the cart
+        for (OrderItem item : items) {
+            if (item.getProduct().equals(product)) {
+                item.setQuantity(item.getQuantity() + quantity); // Update quantity
+                return;
+            }
+        }
+        // If the product is not in the cart, add a new OrderItem
+        items.add(new OrderItem(product, quantity));
     }
 
     public List<OrderItem> getItems() {
-        return items.entrySet().stream()
-                .map(entry -> new OrderItem(entry.getKey(), entry.getValue()))
-                .collect(Collectors.toList());
+        return items;
     }
 
     public void clear() {
@@ -31,9 +37,9 @@ public class ShoppingCart {
         System.out.printf("%-20s %-10s %-10s %-10s\n", "Product", "Price", "Qty", "Total");
         double grandTotal = 0.0;
 
-        for (Map.Entry<Product, Integer> entry : items.entrySet()) {
-            Product product = entry.getKey();
-            int quantity = entry.getValue();
+        for (OrderItem item : items) {
+            Product product = item.getProduct();
+            int quantity = item.getQuantity();
             double total = product.getPrice() * quantity;
             grandTotal += total;
 
@@ -52,13 +58,13 @@ public class ShoppingCart {
 
     public double getTotalAmountWithTax() {
         double grandTotal = 0.0;
-    
-        for (Map.Entry<Product, Integer> entry : items.entrySet()) {
-            Product product = entry.getKey();
-            int quantity = entry.getValue();
+
+        for (OrderItem item : items) {
+            Product product = item.getProduct();
+            int quantity = item.getQuantity();
             grandTotal += product.getPrice() * quantity;
         }
-    
+
         double taxAmount = grandTotal * Order.TAX_RATE;
         return grandTotal + taxAmount;
     }

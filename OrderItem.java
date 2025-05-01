@@ -20,6 +20,10 @@ class OrderItem {
         return quantity;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     @Override
     public String toString() {
         return String.format("%s (Quantity: %d, Total: $%.2f)",
