@@ -1,4 +1,3 @@
-
 public class Admin extends User {
 
   private String AdminPassword;
@@ -17,13 +16,12 @@ public class Admin extends User {
   }
 
   @Override
-public String toString() {
+  public String toString() {
     return String.format(
-      
-        super.toString() 
-        
-    );
-}
 
+        super.toString()
+
+    );
+  }
 
 }
