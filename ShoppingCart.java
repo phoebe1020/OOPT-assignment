@@ -1,4 +1,7 @@
 //Author: Lim Wan Yoke, Siow Wern Qin
+//Module: User Management
+//System: Online Shopping System
+//Group: DFT1G12
 import java.util.ArrayList;
 import java.util.List;
 

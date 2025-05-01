@@ -1,4 +1,7 @@
 //Author: Lim Wan Yoke
+//Module: Product Management
+//System: Online Shopping System
+//Group: DFT1G12
 import java.util.List;
 import java.util.Scanner;
 

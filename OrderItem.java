@@ -1,8 +1,11 @@
 // Author: Lim Wan Yoke
+//Module: Order Management
+//System: Online Shopping System
+//Group: DFT1G12
 class OrderItem {
     private Product product;
     private int quantity;
-    
+
     public OrderItem(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;

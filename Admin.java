@@ -1,4 +1,7 @@
 //Author: Melody Lee
+//Module: Order Management
+//System: Online Shopping System
+//Group: DFT1G12
 public class Admin extends User {
 
   private String AdminPassword;
