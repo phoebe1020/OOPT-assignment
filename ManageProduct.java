@@ -71,7 +71,7 @@ class ManageProduct {
         System.out.print("Enter Stock: ");
         int stock = scanner.nextInt();
         scanner.nextLine(); // Consume newline
-        System.out.print("Enter Brand (Popmart/Sanrio): ");
+        System.out.print("Enter Brand (Popmart/Sanrio/Pokemon/Studio Ghibli): ");
         String brand = scanner.nextLine();
         System.out.print("Enter Series/Edition: ");
         String series = scanner.nextLine();
