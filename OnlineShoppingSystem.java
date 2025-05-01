@@ -298,6 +298,7 @@ public class OnlineShoppingSystem {
                                 int methodChoice = scanner.nextInt();
                                 scanner.nextLine(); // consume newline
 
+                                Payment.PaymentMethod method = null;
                                 switch (methodChoice) {
                                     case 1:
                                         payment.selectPaymentMethod(Payment.PaymentMethod.CREDIT_CARD);
@@ -317,12 +318,20 @@ public class OnlineShoppingSystem {
                                 }
 
                                 // === Process Payment ===
-                                boolean success = payment.processPayment();
+                                payment.selectPaymentMethod(method);
+
+                                boolean success = payment.processPayment(loggedInCustomer);
+
                                 if (!success) {
-                                    System.out.print("Payment failed. Do you want to retry? (Y/N): ");
+                                    System.out.print("Retry payment? (Y/N): ");
                                     String retry = scanner.nextLine();
                                     if (retry.equalsIgnoreCase("Y")) {
-                                        payment.retryPayment();
+                                        success = payment.retryPayment(loggedInCustomer);
+                                        if (success) {
+                                            System.out.println("Payment retry successful.");
+                                        } else {
+                                            System.out.println("Payment retry failed.");
+                                        }
                                     }
                                 }
 

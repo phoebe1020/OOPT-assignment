@@ -39,6 +39,13 @@ public class Payment extends User {
         BANK_TRANSFER
     }
 
+    public enum TransactionStatus {
+        PENDING,
+        SUCCESS,
+        FAILED,
+        REFUNDED
+    }
+
     public PaymentMethod getMethod() {
         return method;
     }
@@ -85,138 +92,97 @@ public class Payment extends User {
         return paymentDate;
     }
 
-    public void selectPaymentMethod(PaymentMethod method) { // Method to select payment method
+    public void selectPaymentMethod(PaymentMethod method) {
         if (method == null) {
-            System.out.println("Invalid payment method selected.");
+            System.out.println("Invalid method.");
             return;
         }
         this.method = method;
-        System.out.println("Payment method selected: " + method);
+        System.out.println("Selected: " + method);
     }
 
-    public boolean processPayment() {
-        if (this.method == null) {
-            System.out.println("Payment method not selected.");
-            this.status = TransactionStatus.FAILED;
+    public boolean processPayment(Customer customers) {
+        if (method == null) {
+            System.out.println("No payment method selected.");
+            status = TransactionStatus.FAILED;
             return false;
         }
 
         Scanner scanner = new Scanner(System.in);
 
-        switch (method) {
-            case CREDIT_CARD:
-            case DEBIT_CARD:
-                System.out.print("Enter 16-digit Card Number: ");
-                String cardNumber = scanner.nextLine();
-                if (!cardNumber.matches("\\d{16}")) {
-                    System.out.println("Invalid card number.");
-                    this.status = TransactionStatus.FAILED;
+        while (true) {
+            switch (method) {
+                case CREDIT_CARD:
+                case DEBIT_CARD:
+                    System.out.print("Enter card number (16 digits): ");
+                    String cardInput = scanner.nextLine();
+                    if (cardInput.length() != 16) {
+                        System.out.println("Invalid card number. Please try again.");
+                        continue;
+                    }
+                    break;
+                case PAYPAL:
+                    System.out.print("Enter PayPal email: ");
+                    String email = scanner.nextLine();
+                    if (customers.getEmail().equals(email)) {
+                        System.out.println("PayPal email verified.");
+                    } else {
+                        System.out.println("Invalid PayPal email. Please try again.");
+                        continue;
+                    }
+                    break;
+                case BANK_TRANSFER:
+                    System.out.println("Processing bank transfer...");
+                    break;
+                default:
+                    System.out.println("Invalid payment method.");
                     return false;
-                }
-
-                System.out.println("Processing payment via " + method + "...");
-                break;
-
-            case PAYPAL:
-                System.out.print("Enter your PayPal email: ");
-                String paypalEmail = scanner.nextLine();
-                if (!paypalEmail.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-                    System.out.println("Invalid PayPal email.");
-                    this.status = TransactionStatus.FAILED;
-                    return false;
-                }
-
-                System.out.println("Processing payment via PayPal...");
-                break;
-
-            case BANK_TRANSFER:
-                System.out.print("Enter your Bank Account Number: ");
-                String accountNumber = scanner.nextLine();
-                if (!accountNumber.matches("\\d{8,20}")) {
-                    System.out.println("Invalid bank account number.");
-                    this.status = TransactionStatus.FAILED;
-                    return false;
-                }
-
-                System.out.println("Processing payment via Bank Transfer...");
-                break;
-
-            default:
-                System.out.println("Unknown payment method.");
-                this.status = TransactionStatus.FAILED;
-                return false;
+            }
+            break;
         }
 
-        this.status = TransactionStatus.PENDING;
-        try {
-            System.out.println("Payment is being processed. Please wait...");
-            Thread.sleep(3000); // Simulate a delay for payment processing
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        if (Math.random() > 0.8) {
-            this.status = TransactionStatus.FAILED;
-            System.out.println("Payment failed due to a processing error.");
-            return false;
-        }
-
-        this.status = TransactionStatus.SUCCESS;
-        System.out.println("Payment processed successfully.");
+        status = TransactionStatus.SUCCESS;
         return true;
     }
 
     // ...existing code...
-    public boolean retryPayment() { 
-        if (this.status != TransactionStatus.FAILED) {
-            System.out.println("No need to retry. Current status: " + status);
+    public boolean retryPayment(Customer customers) {
+        if (status != TransactionStatus.FAILED) {
+            System.out.println("Retry not needed.");
             return false;
         }
-        if (this.method == null) {
-            System.out.println("Cannot retry. Payment method not set.");
-            return false;
-        }
-        return processPayment();
+        return processPayment(customers);
     }
 
-    public enum TransactionStatus { 
-        PENDING,
-        SUCCESS,
-        FAILED,
-        REFUNDED
-    }
-
-    public boolean requestRefund() { 
+    public boolean requestRefund() {
         if (status == TransactionStatus.SUCCESS) {
-            this.status = TransactionStatus.REFUNDED;
-            System.out.println("Refund processed.");
+            status = TransactionStatus.REFUNDED;
+            System.out.println("Refunded.");
             return true;
         }
-        System.out.println("Refund failed. Payment was not successful.");
+        System.out.println("Refund failed.");
         return false;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("========================================\n");
-        sb.append("              PAYMENT RECEIPT\n");
-        sb.append("========================================\n");
-        sb.append(String.format("Payment ID    : %s\n", paymentId));
-        sb.append(String.format("Order ID      : %s\n", orderId));
-        sb.append(String.format("Customer Name : %s\n", getName()));
-        sb.append(String.format("Email         : %s\n", getEmail()));
-        sb.append(String.format("Phone         : %s\n", getPhone()));
-        sb.append(String.format("Address       : %s\n", getAddress()));
-        sb.append("----------------------------------------\n");
-        sb.append(String.format("Amount Paid   : $%.2f\n", amount));
-        sb.append(String.format("Payment Method: %s\n", method != null ? method : "Not set"));
-        sb.append(String.format("Status        : %s\n", status));
-        sb.append(String.format("Payment Date  : %s\n", paymentDate));
-        sb.append("========================================\n");
-        sb.append("        THANK YOU FOR YOUR PAYMENT!\n");
-        sb.append("========================================");
-        return sb.toString();
+        return "=============================\n" +
+                "        PAYMENT RECEIPT\n" +
+                "=============================\n" +
+                "Payment ID   : " + paymentId + "\n" +
+                "Order ID     : " + orderId + "\n" +
+                "Name         : " + getName() + "\n" +
+                "Email        : " + getEmail() + "\n" +
+                "Phone        : " + getPhone() + "\n" +
+                "Address      : " + getAddress() + "\n" +
+                "-------------------------------\n" +
+                "Amount Paid  : " + amount + "\n" +
+                "Method       : " + method + "\n" +
+                "Status       : " + status + "\n" +
+                "Payment Date : " + paymentDate + "\n" +
+                "=============================\n" +
+                " THANK YOU FOR YOUR PAYMENT!" +
+                "\n=============================";
     }
 
     public String getDetails() {

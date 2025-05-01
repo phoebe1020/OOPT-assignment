@@ -32,7 +32,7 @@ public class Order {
     }
 
     private void processPayment() {
-        if (payment.processPayment()) {
+        if (payment.processPayment(customer)) {
             this.status = OrderStatus.PROCESSING;
             updateInventory();
         }
@@ -129,7 +129,7 @@ public class Order {
         double total = calculateTotal();
         this.payment = new Payment(this.orderId, total);
 
-        if (payment.processPayment()) {
+        if (payment.processPayment(customer)) {
             this.status = OrderStatus.COMPLETED;
             updateInventory();
             System.out.println("Order completed successfully! Order ID: " + orderId);
