@@ -1,5 +1,5 @@
 //Author: Siow Wern Qin, Melody Lee
-//Module: Order Management
+//Module: User Management
 //System: Online Shopping System
 //Group: DFT1G12
 import java.util.*;

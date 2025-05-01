@@ -1,5 +1,5 @@
 //Author: Lee Meng Yee
-//Module: Order Management
+//Module: Purchase Management
 //System: Online Shopping System
 //Group: DFT1G12
 import java.time.LocalDateTime;

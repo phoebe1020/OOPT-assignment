@@ -1,5 +1,5 @@
 //Author: Melody Lee
-//Module: Order Management
+//Module: User Management
 //System: Online Shopping System
 //Group: DFT1G12
 public class Admin extends User {
