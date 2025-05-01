@@ -16,9 +16,14 @@ public class Admin extends User {
     this.AdminPassword = adminPassword;
   }
 
-  public String toString() {
-    return super.toString() + "AdminPassword: " + AdminPassword + "\n";
+  @Override
+public String toString() {
+    return String.format(
+      
+        super.toString() 
+        
+    );
+}
 
-  }
 
 }

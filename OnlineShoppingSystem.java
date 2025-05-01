@@ -369,7 +369,9 @@ public class OnlineShoppingSystem {
                             System.out.println("\n--- Admin Menu ---");
                             System.out.println("1. Manage Products");
                             System.out.println("2. Order list");
-                            System.out.println("3. Logout");
+                            System.out.println("3. Admin List");
+                            System.out.println("4. Customer List");
+                            System.out.println("5. Logout");
                             System.out.print("Choose an option: ");
                             int adminChoice = scanner.nextInt();
                             scanner.nextLine();
@@ -385,6 +387,25 @@ public class OnlineShoppingSystem {
                                     break;
 
                                 case 3:
+                                    System.out.println("Admin List:");
+                                    for (Admin a : admins) {
+                                        System.out.println(a.toString());
+                                    }
+                                    System.out.println("-------------------");
+                                    System.out.println("Total Admins: " + admins.length);
+                                    System.out.println("-------------------");
+
+                                break;
+
+                                    case 4:
+                                        System.out.println("Customer List:");
+                                        for (Customer c : customers) {
+                                            System.out.println(c.toString());
+                                        }
+                                        System.out.println("-------------------");
+                                        break; 
+                                        
+                                        case 5:
                                     System.out.println("Logging out...");
                                     adminRunning = false;
                                     break;
