@@ -207,7 +207,8 @@ public class OnlineShoppingSystem {
                                     break;
 
                                 case 2:
-                                    
+                                displayOrderList(); // Call the method to display orders
+
                                     break;
 
                                 case 3:
@@ -240,4 +241,16 @@ public class OnlineShoppingSystem {
         System.out.println("Thank you! Have a nice day!");
     }
 
+    private static void displayOrderList() {
+        if (orderList.isEmpty()) {
+            System.out.println("No orders have been placed yet.");
+            return;
+        }
+    
+        System.out.println("\n--- Order List ---");
+        for (Order order : orderList) {
+            System.out.println(order.toString()); 
+            System.out.println("-------------------");
+        }
+    }
 }
