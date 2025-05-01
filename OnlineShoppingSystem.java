@@ -392,7 +392,8 @@ public class OnlineShoppingSystem {
 
                                 case 2:
                                     displayOrderList(); // Call the method to display orders
-
+                                    System.out.println("Press Enter to return to the Admin Menu...");
+                                    scanner.nextLine(); // Wait for Enter
                                     break;
 
                                 case 3:
@@ -403,18 +404,21 @@ public class OnlineShoppingSystem {
                                     System.out.println("-------------------");
                                     System.out.println("Total Admins: " + admins.length);
                                     System.out.println("-------------------");
+                                    System.out.println("Press Enter to return to the Admin Menu...");
+                                    scanner.nextLine(); // Wait for Enter
+                                    break;
 
-                                break;
+                                case 4:
+                                    System.out.println("Customer List:");
+                                    for (Customer c : customers) {
+                                        System.out.println(c.toString());
+                                    }
+                                    System.out.println("-------------------");
+                                    System.out.println("Press Enter to return to the Admin Menu...");
+                                    scanner.nextLine(); // Wait for Enter
+                                    break;
 
-                                    case 4:
-                                        System.out.println("Customer List:");
-                                        for (Customer c : customers) {
-                                            System.out.println(c.toString());
-                                        }
-                                        System.out.println("-------------------");
-                                        break; 
-                                        
-                                        case 5:
+                                case 5:
                                     System.out.println("Logging out...");
                                     adminRunning = false;
                                     break;
