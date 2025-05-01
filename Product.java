@@ -1,4 +1,7 @@
-
+//Author: Lim Wan Yoke
+//Module: Product Management
+//System: Online Shopping System
+//Group: DFT1G12
 // Product class definition
 public class Product {
     private String productID;

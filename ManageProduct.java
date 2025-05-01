@@ -1,3 +1,7 @@
+//Author: Lim Wan Yoke
+//Module: Product Management
+//System: Online Shopping System
+//Group: DFT1G12
 import java.util.List;
 import java.util.Scanner;
 
@@ -67,7 +71,7 @@ class ManageProduct {
         System.out.print("Enter Stock: ");
         int stock = scanner.nextInt();
         scanner.nextLine(); // Consume newline
-        System.out.print("Enter Brand (Popmart/Sanrio): ");
+        System.out.print("Enter Brand (Popmart/Sanrio/Pokemon/Studio Ghibli): ");
         String brand = scanner.nextLine();
         System.out.print("Enter Series/Edition: ");
         String series = scanner.nextLine();

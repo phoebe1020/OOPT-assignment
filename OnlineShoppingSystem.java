@@ -393,7 +393,8 @@ public class OnlineShoppingSystem {
 
                                 case 2:
                                     displayOrderList(); // Call the method to display orders
-
+                                    System.out.println("Press Enter to return to the Admin Menu...");
+                                    scanner.nextLine(); // Wait for Enter
                                     break;
 
                                 case 3:
@@ -404,11 +405,15 @@ public class OnlineShoppingSystem {
                                     System.out.println("-------------------");
                                     System.out.println("Total Admins: " + admins.length);
                                     System.out.println("-------------------");
-
-                                break;
+                                    System.out.println("Press Enter to return to the Admin Menu...");
+                                    scanner.nextLine(); // Wait for Enter
+                                    break;
 
                                     case 4:
-                                    manageCustomer.manageCustomerMenu();
+                                    manageCustomer.manageCustomerMenu()
+                                    System.out.println("-------------------");
+                                    System.out.println("Press Enter to return to the Admin Menu...");
+                                    scanner.nextLine(); // Wait for Enter
                                         break; 
                                         
                                         case 5:

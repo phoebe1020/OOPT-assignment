@@ -1,3 +1,7 @@
+//Author: Melody Lee, Lim Wan Yoke
+//Module: Order Management
+//System: Online Shopping System
+//Group: DFT1G12
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -26,9 +30,7 @@ public class Order {
     }
 
     private double calculateTotal() {
-        return items.stream()
-                .mapToDouble(OrderItem::getTotal)
-                .sum();
+        return items.stream().mapToDouble(OrderItem::getTotal).sum();
     }
 
     private void processPayment() {

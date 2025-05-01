@@ -1,3 +1,7 @@
+//Author: Siow Wern Qin, Melody Lee
+//Module: User Management
+//System: Online Shopping System
+//Group: DFT1G12
 import java.util.*;
 
 // Customer class

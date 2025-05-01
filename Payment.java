@@ -1,3 +1,7 @@
+//Author: Lee Meng Yee
+//Module: Purchase Management
+//System: Online Shopping System
+//Group: DFT1G12
 import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.UUID;
@@ -145,7 +149,6 @@ public class Payment extends User {
         return true;
     }
 
-    // ...existing code...
     public boolean retryPayment(Customer customers) {
         if (status != TransactionStatus.FAILED) {
             System.out.println("Retry not needed.");

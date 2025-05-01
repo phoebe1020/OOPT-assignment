@@ -1,3 +1,7 @@
+//Author: Melody Lee, Siow Wern Qin
+//Module: User Management
+//System: Online Shopping System
+//Group: DFT1G12
 public class User {
     private String userId;
     private String name;
