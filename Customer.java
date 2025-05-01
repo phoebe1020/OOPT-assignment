@@ -42,12 +42,6 @@ public class Customer extends User {
         Order order = new Order(this, cart.getItems());
         orderHistory.add(order);
         OnlineShoppingSystem.orderList.add(order);
-
-        double totalWithTax = order.getTotalPriceWithTax();
-        Payment payment = new Payment(order.getOrderId(), totalWithTax);
-        order.setPayment(payment);
-
-        order.completeOrder();
         cart.clear();
         System.out.println("Order placed successfully! Order ID: " + order.getOrderId());
     }
@@ -116,6 +110,10 @@ public class Customer extends User {
 
     public void clearCart() {
         cart.clear();
+    }
+
+    public ShoppingCart getShoppingCart() {
+        return this.cart;
     }
 
     @Override

@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 
 // Main class//////////////////////////////////////////////////////////////////////
 public class OnlineShoppingSystem {
@@ -259,10 +260,82 @@ public class OnlineShoppingSystem {
                         case 2: // === View Cart ===
                             System.out.println("\n--- Your Cart ---");
                             loggedInCustomer.viewCart(); // You should implement this method
+
                             System.out.print("Do you want to proceed to payment? (Y/N): ");
                             scanner.nextLine(); // consume newline
                             String confirm = scanner.nextLine();
+                            if (confirm.equalsIgnoreCase("N")) {
+                                System.out.println("Returning to menu...");
+                                break; // Return to menu
+                            }
                             if (confirm.equalsIgnoreCase("Y")) {
+                                String orderId = UUID.randomUUID().toString();
+                                double totalAmount = loggedInCustomer.getShoppingCart().getTotalAmountWithTax();
+
+                                if (totalAmount <= 0) {
+                                    System.out.println(
+                                            "Your cart is empty or the total amount is invalid. Cannot proceed to payment.");
+                                    shopping = false; // Exit the payment process
+                                }
+
+                                // === Create Payment Object ===
+                                Payment payment = new Payment(
+                                        orderId,
+                                        totalAmount,
+                                        loggedInCustomer.getUserId(),
+                                        loggedInCustomer.getName(),
+                                        loggedInCustomer.getEmail(),
+                                        loggedInCustomer.getPhone(),
+                                        loggedInCustomer.getAddress());
+
+                                // === Select Payment Method ===
+                                System.out.println("\nSelect Payment Method:");
+                                System.out.println("1. Credit Card");
+                                System.out.println("2. Debit Card");
+                                System.out.println("3. PayPal");
+                                System.out.println("4. Bank Transfer");
+                                System.out.print("Your choice: ");
+                                int methodChoice = scanner.nextInt();
+                                scanner.nextLine(); // consume newline
+
+                                switch (methodChoice) {
+                                    case 1:
+                                        payment.selectPaymentMethod(Payment.PaymentMethod.CREDIT_CARD);
+                                        break;
+                                    case 2:
+                                        payment.selectPaymentMethod(Payment.PaymentMethod.DEBIT_CARD);
+                                        break;
+                                    case 3:
+                                        payment.selectPaymentMethod(Payment.PaymentMethod.PAYPAL);
+                                        break;
+                                    case 4:
+                                        payment.selectPaymentMethod(Payment.PaymentMethod.BANK_TRANSFER);
+                                        break;
+                                    default:
+                                        System.out.println("Invalid payment method. Payment aborted.");
+                                        return;// Abort payment process
+                                }
+
+                                // === Process Payment ===
+                                boolean success = payment.processPayment();
+                                if (!success) {
+                                    System.out.print("Payment failed. Do you want to retry? (Y/N): ");
+                                    String retry = scanner.nextLine();
+                                    if (retry.equalsIgnoreCase("Y")) {
+                                        payment.retryPayment();
+                                    }
+                                }
+
+                                System.out.println("\n--- Payment Summary ---");
+                                System.out.println(payment);
+
+                                if (payment.getStatus() == Payment.TransactionStatus.SUCCESS) {
+                                    System.out.print("Do you want to request a refund? (Y/N): ");
+                                    String refundChoice = scanner.nextLine();
+                                    if (refundChoice.equalsIgnoreCase("Y")) {
+                                        payment.requestRefund();
+                                    }
+                                }
                                 loggedInCustomer.placeOrder();
                                 mainChoice = 0; // Reset mainChoice to avoid going back to the menu
                             }

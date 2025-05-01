@@ -49,4 +49,17 @@ public class ShoppingCart {
         System.out.printf("Tax (10%%): RM %.2f\n", taxAmount);
         System.out.printf("Total Amount (with tax): RM %.2f\n", totalWithTax);
     }
+
+    public double getTotalAmountWithTax() {
+        double grandTotal = 0.0;
+    
+        for (Map.Entry<Product, Integer> entry : items.entrySet()) {
+            Product product = entry.getKey();
+            int quantity = entry.getValue();
+            grandTotal += product.getPrice() * quantity;
+        }
+    
+        double taxAmount = grandTotal * Order.TAX_RATE;
+        return grandTotal + taxAmount;
+    }
 }
