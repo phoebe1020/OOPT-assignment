@@ -1,4 +1,4 @@
-//Author: Melody Lee, Siow Wern Qin
+//Author: Siow Wern Qin, Melody Lee
 //Module: Order Management
 //System: Online Shopping System
 //Group: DFT1G12
