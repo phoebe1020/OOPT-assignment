@@ -1,10 +1,11 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 // Main class//////////////////////////////////////////////////////////////////////
 public class OnlineShoppingSystem {
-    public static List<Order> orderList = new ArrayList<>(); 
+    public static List<Order> orderList = new ArrayList<>();
 
     public static void clearScreen() {
         try {
@@ -36,7 +37,11 @@ public class OnlineShoppingSystem {
         Scanner scanner = new Scanner(System.in);
 
         // Create customer
-        Customer customer = new Customer("C1", "John Doe", "john@example.com", "555-1234", "123 Main St");
+        List<Customer> customers = new ArrayList<>();
+        customers.add(new Customer("C1", "Siow", "siow@gmail.com", "012345678", "123 Home"));
+        customers.add(new Customer("C2", "Melody", "melodiddy@gmail.com", "013456789", "123 Klang"));
+        customers.add(new Customer("C3", "Phoebe", "fakeh@gmail.com", "014567890", "123 Tarumt"));
+        customers.add(new Customer("C4", "Lee", "lee@gmail.com", "015678901", "Lee Jeans"));
         // Create admin users
         Admin[] admins = new Admin[3];
         admins[0] = new Admin("AMD001", "Xavier", "xavier@gmail.com", "011111111", "Meow Street", "Xavier123");
@@ -46,14 +51,53 @@ public class OnlineShoppingSystem {
         // Create a shared product list
         List<Product> products = new ArrayList<>();
         products.add(
-                new Product("P1", "Crybaby", "Always crying baby", 1500.00, 10, "Popmart", "Crybaby For Love Edition"));
+                new Product("P1", "Crybaby", "Always crying baby", 1500.00, 10, "Popmart",
+                        "Crybaby For Love Edition"));
         products.add(
-                new Product("P2", "Labubu", "Just a monster..", 999.99, 20, "Popmart", "Labubu Cherry Blossom Series"));
-        products.add(new Product("P3", "Cinnamoroll", "Cute little baby", 499.99, 15, "Sanrio",
-                "Special Cinnamoroll Plush"));
-        products.add(new Product("P4", "Hello Kitty", "A cat-like human", 299.99, 30, "Sanrio",
-                "Hello Kitty Anniversary Edition"));
-
+                new Product("P2", "Labubu", "Just a monster..", 999.99, 20, "Popmart",
+                        "Labubu Cherry Blossom Series"));
+        products.add(
+                new Product("P3", "Zimomo", "Literally a labubu with a tail", 999.99, 7, "Popmart",
+                        "The Zimomo Collection"));
+        products.add(
+                new Product("P4", "Dino", "A dinosaur", 799.99, 5, "Popmart",
+                        "The Dino Collection"));
+        products.add(
+                new Product("S1", "Cinnamoroll", "Cute little baby", 499.99, 15, "Sanrio",
+                        "Special Cinnamoroll Plush"));
+        products.add(
+                new Product("S2", "Hello Kitty", "A cat-like human", 299.99, 30, "Sanrio",
+                        "Hello Kitty Anniversary Edition"));
+        products.add(
+                new Product("S3", "Pompompurin", "A dog made of pudding", 249.99, 12, "Sanrio",
+                        "Pompompurin Bakery Series"));
+        products.add(
+                new Product("S4", "Melody", "Not the one in our group", 349.99, 18, "Sanrio",
+                        "My Melody Sweet Series"));
+        products.add(
+                new Product("PK1", "Pikachu", "Electric mouse", 199.99, 25, "Pokemon",
+                        "Pikachu Special Edition"));
+        products.add(
+                new Product("PK2", "Eevee", "A cute little fox (Phoebe's fav)", 299.99, 22, "Pokemon",
+                        "Eevee Special Edition"));
+        products.add(
+                new Product("PK3", "Jigglypuff", "A dedicated singer", 599.99, 6, "Pokemon",
+                        "Jigglypuff Special Edition"));
+        products.add(
+                new Product("PK4", "Squirtle", "A squirting turtle", 399.99, 10, "Pokemon",
+                        "Squirtle Special Edition"));
+        products.add(
+                new Product("T1", "Totoro", "A forest spirit", 399.99, 5, "Studio Ghibli", "Totoro Forest Edition"));
+        products.add(
+                new Product("T2", "Spirited Away", "A spirit world", 399.99, 8, "Studio Ghibli",
+                        "Spirited Away Collector's Edition"));
+        products.add(
+                new Product("T3", "Kiki", "A witch in training", 499.99, 4, "Studio Ghibli",
+                        "Kiki's Delivery Service Edition"));
+        products.add(
+                new Product("T4", "Howl", "A wizard with a heart", 499.99, 3, "Studio Ghibli",
+                        "Howl's Moving Castle Edition"));
+        
         // Pass the shared product list to ManageProduct
         ManageProduct manageProduct = new ManageProduct(products);
         boolean mainMenuRunning = true;
@@ -70,21 +114,31 @@ public class OnlineShoppingSystem {
             scanner.nextLine(); // consume newline
 
             if (menuChoice == 1) {
-                System.out.print("Enter username: ");
-                String inputUser = scanner.nextLine();
+                boolean loginSuccessful = false;
+                Customer loggedInCustomer = null;
 
-                String inputPass = "";
-                while (true) {
+                while (!loginSuccessful) {
+                    System.out.print("Enter customer username: ");
+                    String inputUser = scanner.nextLine();
+
                     System.out.print("Enter password (8 characters only): ");
-                    inputPass = scanner.nextLine();
+                    String inputPass = scanner.nextLine();
 
-                    if (inputPass.length() == 8) {
-                        break; // Exit the loop if password is 8 characters long
+                    for (Customer c : customers) {
+                        if (inputUser.equals(c.getName()) && inputPass.length() == 8) {
+                            loggedInCustomer = c;
+                            loginSuccessful = true;
+                            break;
+                        }
+                    }
+
+                    if (loginSuccessful) {
+                        System.out.println("Login successful! Welcome, " + loggedInCustomer.getName() + "!");
                     } else {
-                        System.out.println("Password must be exactly 8 characters long. Try again.");
+                        System.out.println("Invalid username or password. Please try again.");
                     }
                 }
-                System.out.println("Login successful! Welcome, " + inputUser + "!\n");
+
                 // Customer menu
                 boolean customerRunning = true;
                 while (customerRunning) {
@@ -97,60 +151,106 @@ public class OnlineShoppingSystem {
 
                     switch (mainChoice) {
                         case 1: // === Order Products ===
-                            boolean continueShopping = true;
-                            while (continueShopping) {
-                                System.out.println("\nAvailable Products:");
-                                System.out.printf("%-11s %-20s %-15s %-15s %-20s\n", "Product ID", "Name",
-                                        "Price (USD)",
-                                        "Brand", "Series/Edition");
-
-                                for (Product product : products) {
-                                    System.out.printf("%-11s %-20s %-15.2f %-15s %-20s\n",
-                                            product.getProductID(),
-                                            product.getProductName(),
-                                            product.getPrice(),
-                                            product.getBrand(),
-                                            product.getSeries());
+                            boolean shopping = true;
+                            while (shopping) {
+                                // Step 1: Show unique categories (brands)
+                                List<String> categories = new ArrayList<>();
+                                for (Product p : products) {
+                                    if (!categories.contains(p.getBrand())) {
+                                        categories.add(p.getBrand());
+                                    }
                                 }
 
-                                System.out.println("5. Back to Menu");
-                                System.out.print("Select a product to add to cart (1-5): ");
-                                int choice = scanner.nextInt();
+                                System.out.println("\nAvailable Categories:");
+                                for (int i = 0; i < categories.size(); i++) {
+                                    System.out.println((i + 1) + ". " + categories.get(i));
+                                }
+                                System.out.println((categories.size() + 1) + ". Back to Menu"); // Back as a number
+                                System.out.print("Choose a category: ");
 
-                                switch (choice) {
-                                    case 1:
-                                        System.out.println("You selected Crybaby.");
-                                        System.out.print("Enter quantity: ");
-                                        customer.addToCart(products.get(0), scanner.nextInt());
-                                        break;
-                                    case 2:
-                                        System.out.println("You selected Labubu.");
-                                        System.out.print("Enter quantity: ");
-                                        customer.addToCart(products.get(1), scanner.nextInt());
-                                        break;
-                                    case 3:
-                                        System.out.println("You selected Cinnamoroll.");
-                                        System.out.print("Enter quantity: ");
-                                        customer.addToCart(products.get(2), scanner.nextInt());
-                                        break;
-                                    case 4:
-                                        System.out.println("You selected Hello Kitty.");
-                                        System.out.print("Enter quantity: ");
-                                        customer.addToCart(products.get(3), scanner.nextInt());
-                                        break;
-                                    case 5:
-                                        continueShopping = false;
-                                        break;
-                                    default:
+                                int categoryChoice;
+                                try {
+                                    categoryChoice = scanner.nextInt();
+                                    scanner.nextLine(); // consume newline
+                                } catch (InputMismatchException e) {
+                                    System.out.println("Invalid input. Please enter a number.");
+                                    scanner.nextLine(); // clear invalid input
+                                    continue;
+                                }
+
+                                if (categoryChoice == categories.size() + 1) {
+                                    shopping = false; // Exit shopping loop and go back to menu
+                                    break;
+                                }
+
+                                if (categoryChoice < 1 || categoryChoice > categories.size()) {
+                                    System.out.println("Invalid category. Please try again.");
+                                    continue;
+                                }
+
+                                String selectedCategory = categories.get(categoryChoice - 1);
+
+                                // Step 2: Show products in that category
+                                List<Product> categoryProducts = new ArrayList<>();
+                                for (Product p : products) {
+                                    if (p.getBrand().equals(selectedCategory)) {
+                                        categoryProducts.add(p);
+                                    }
+                                }
+
+                                boolean shoppingCategory = true;
+                                while (shoppingCategory) {
+                                    System.out.println("\nProducts in " + selectedCategory + ":");
+                                    for (int i = 0; i < categoryProducts.size(); i++) {
+                                        Product p = categoryProducts.get(i);
+                                        System.out.printf("%-10s %-20s $%-10.2f [%s]\n", p.getProductID(),
+                                                p.getProductName(), p.getPrice(), p.getDescription());
+                                    }
+                                    System.out.println((categoryProducts.size() + 1) + ". Back to Categories"); // Back
+                                                                                                                // as a
+                                                                                                                // number
+                                    System.out.print("Select a product by number: ");
+
+                                    String input = scanner.nextLine();
+
+                                    int productChoice;
+                                    try {
+                                        productChoice = Integer.parseInt(input);
+                                    } catch (NumberFormatException e) {
+                                        System.out.println("Invalid input. Please enter a number.");
+                                        continue;
+                                    }
+
+                                    if (productChoice == categoryProducts.size() + 1) {
+                                        shoppingCategory = false; // Back to categories
+                                        continue;
+                                    }
+
+                                    if (productChoice < 1 || productChoice > categoryProducts.size()) {
                                         System.out.println("Invalid choice. Please try again.");
-                                }
+                                        continue;
+                                    }
 
-                                if (choice >= 1 && choice <= 4) {
-                                    System.out.print("Do you want to continue shopping? (Y/N): ");
-                                    scanner.nextLine();
-                                    String response = scanner.nextLine();
-                                    if (!response.equalsIgnoreCase("yes")) {
-                                        continueShopping = false;
+                                    Product selectedProduct = categoryProducts.get(productChoice - 1);
+                                    System.out.println("You selected " + selectedProduct.getProductName() + ".");
+
+                                    System.out.print("Enter quantity: ");
+                                    int quantity;
+                                    try {
+                                        quantity = scanner.nextInt();
+                                        scanner.nextLine(); // consume newline
+                                    } catch (InputMismatchException e) {
+                                        System.out.println("Invalid quantity. Please enter a valid number.");
+                                        scanner.nextLine(); // clear invalid input
+                                        continue;
+                                    }
+
+                                    loggedInCustomer.addToCart(selectedProduct, quantity);
+
+                                    System.out.print("Do you want to continue shopping in this category? (Y/N): ");
+                                    String cont = scanner.nextLine();
+                                    if (!cont.equalsIgnoreCase("Y")) {
+                                        shoppingCategory = false;
                                     }
                                 }
                             }
@@ -158,12 +258,12 @@ public class OnlineShoppingSystem {
 
                         case 2: // === View Cart ===
                             System.out.println("\n--- Your Cart ---");
-                            customer.viewCart(); 
+                            loggedInCustomer.viewCart(); // You should implement this method
                             System.out.print("Do you want to proceed to payment? (Y/N): ");
-                            scanner.nextLine(); 
+                            scanner.nextLine(); // consume newline
                             String confirm = scanner.nextLine();
                             if (confirm.equalsIgnoreCase("yes")) {
-                                customer.placeOrder();
+                                loggedInCustomer.placeOrder();
                                 mainChoice = 0; // Reset mainChoice to avoid going back to the menu
                             }
                             break;
@@ -207,7 +307,7 @@ public class OnlineShoppingSystem {
                                     break;
 
                                 case 2:
-                                displayOrderList(); // Call the method to display orders
+                                    displayOrderList(); // Call the method to display orders
 
                                     break;
 
@@ -246,10 +346,10 @@ public class OnlineShoppingSystem {
             System.out.println("No orders have been placed yet.");
             return;
         }
-    
+
         System.out.println("\n--- Order List ---");
         for (Order order : orderList) {
-            System.out.println(order.toString()); 
+            System.out.println(order.toString());
             System.out.println("-------------------");
         }
     }
