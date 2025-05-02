@@ -18,6 +18,11 @@ public class Customer extends User {
         this.orderHistory = new ArrayList<>();
     }
 
+     // Constructor matching the parameters
+    public Customer(String userId, String name, String email, String phone, String address) {
+        super(userId, name, email, phone, address);
+    }
+
     public void addToCart(Product product, int quantity) {
         cart.addItem(product, quantity);
     }
