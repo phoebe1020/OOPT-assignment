@@ -84,16 +84,6 @@ public class User {
         this.address = address;
     }
 
-    // public void viewUserInfo() {
-    //     System.out.println("User Information:");
-    //     System.out.println("------------------------------");
-    //     System.out.println("User ID: " + userId);
-    //     System.out.println("Name: " + name);
-    //     System.out.println("Email: " + email);
-    //     System.out.println("Phone: " + phone);
-    //     System.out.println("Address: " + address);
-    //     System.out.println("------------------------------");
-    // }
 
     public void deleteUser() {
         this.userId = null;
