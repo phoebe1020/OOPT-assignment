@@ -1,4 +1,7 @@
-// Order Item class
+// Author: Lim Wan Yoke
+//Module: Order Management
+//System: Online Shopping System
+//Group: DFT1G12
 class OrderItem {
     private Product product;
     private int quantity;
@@ -20,11 +23,13 @@ class OrderItem {
         return quantity;
     }
 
-    
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     @Override
     public String toString() {
-        return String.format("%s (Quantity: %d, Total: $%.2f)", 
+        return String.format("%s (Quantity: %d, Total: $%.2f)",
                 product.getProductName(), quantity, getTotal());
     }
 }
-

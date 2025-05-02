@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 
 // Main class//////////////////////////////////////////////////////////////////////
 public class OnlineShoppingSystem {
@@ -38,10 +39,10 @@ public class OnlineShoppingSystem {
 
         // Create customer
         List<Customer> customers = new ArrayList<>();
-        customers.add(new Customer("C1", "Siow", "siow@gmail.com", "012345678", "123 Home"));
-        customers.add(new Customer("C2", "Melody", "melodiddy@gmail.com", "013456789", "123 Klang"));
-        customers.add(new Customer("C3", "Phoebe", "fakeh@gmail.com", "014567890", "123 Tarumt"));
-        customers.add(new Customer("C4", "Lee", "lee@gmail.com", "015678901", "Lee Jeans"));
+        customers.add(new Customer("11111111","C1" , "Siow", "siow@gmail.com", "012345678", "123 Home"));
+        customers.add(new Customer("22222222","C2", "Melody", "melodiddy@gmail.com", "013456789", "123 Klang"));
+        customers.add(new Customer("33333333","C3", "Phoebe", "fakeh@gmail.com", "014567890", "123 Tarumt"));
+        customers.add(new Customer("44444444","C4", "Lee", "lee@gmail.com", "015678901", "Lee Jeans"));
         // Create admin users
         Admin[] admins = new Admin[3];
         admins[0] = new Admin("AMD001", "Xavier", "xavier@gmail.com", "011111111", "Meow Street", "Xavier123");
@@ -50,54 +51,39 @@ public class OnlineShoppingSystem {
 
         // Create a shared product list
         List<Product> products = new ArrayList<>();
-        products.add(
-                new Product("P1", "Crybaby", "Always crying baby", 1500.00, 10, "Popmart",
-                        "Crybaby For Love Edition"));
-        products.add(
-                new Product("P2", "Labubu", "Just a monster..", 999.99, 20, "Popmart",
-                        "Labubu Cherry Blossom Series"));
-        products.add(
-                new Product("P3", "Zimomo", "Literally a labubu with a tail", 999.99, 7, "Popmart",
-                        "The Zimomo Collection"));
-        products.add(
-                new Product("P4", "Dino", "A dinosaur", 799.99, 5, "Popmart",
-                        "The Dino Collection"));
-        products.add(
-                new Product("S1", "Cinnamoroll", "Cute little baby", 499.99, 15, "Sanrio",
-                        "Special Cinnamoroll Plush"));
-        products.add(
-                new Product("S2", "Hello Kitty", "A cat-like human", 299.99, 30, "Sanrio",
-                        "Hello Kitty Anniversary Edition"));
-        products.add(
-                new Product("S3", "Pompompurin", "A dog made of pudding", 249.99, 12, "Sanrio",
-                        "Pompompurin Bakery Series"));
-        products.add(
-                new Product("S4", "Melody", "Not the one in our group", 349.99, 18, "Sanrio",
-                        "My Melody Sweet Series"));
-        products.add(
-                new Product("PK1", "Pikachu", "Electric mouse", 199.99, 25, "Pokemon",
-                        "Pikachu Special Edition"));
-        products.add(
-                new Product("PK2", "Eevee", "A cute little fox (Phoebe's fav)", 299.99, 22, "Pokemon",
-                        "Eevee Special Edition"));
-        products.add(
-                new Product("PK3", "Jigglypuff", "A dedicated singer", 599.99, 6, "Pokemon",
-                        "Jigglypuff Special Edition"));
-        products.add(
-                new Product("PK4", "Squirtle", "A squirting turtle", 399.99, 10, "Pokemon",
-                        "Squirtle Special Edition"));
+        products.add(new Product("P1", "Crybaby", "Always crying baby", 1500.00, 10, "Popmart",
+                "Crybaby For Love Edition"));
+        products.add(new Product("P2", "Labubu", "Just a monster..", 999.99, 20, "Popmart",
+                "Labubu Cherry Blossom Series"));
+        products.add(new Product("P3", "Zimomo", "Literally a labubu with a tail", 999.99, 7, "Popmart",
+                "The Zimomo Collection"));
+        products.add(new Product("P4", "Dino", "A dinosaur", 799.99, 5, "Popmart",
+                "The Dino Collection"));
+        products.add(new Product("S1", "Cinnamoroll", "Cute little baby", 499.99, 15, "Sanrio",
+                "Special Cinnamoroll Plush"));
+        products.add(new Product("S2", "Hello Kitty", "A cat-like human", 299.99, 30, "Sanrio",
+                "Hello Kitty Anniversary Edition"));
+        products.add(new Product("S3", "Pompompurin", "A dog made of pudding", 249.99, 12, "Sanrio",
+                "Pompompurin Bakery Series"));
+        products.add(new Product("S4", "Melody", "Not the one in our group", 349.99, 18, "Sanrio",
+                "My Melody Sweet Series"));
+        products.add(new Product("PK1", "Pikachu", "Electric mouse", 199.99, 25, "Pokemon",
+                "Pikachu Special Edition"));
+        products.add(new Product("PK2", "Eevee", "A cute little fox (Phoebe's fav)", 299.99, 22, "Pokemon",
+                "Eevee Special Edition"));
+        products.add(new Product("PK3", "Jigglypuff", "A dedicated singer", 599.99, 6, "Pokemon",
+                "Jigglypuff Special Edition"));
+        products.add(new Product("PK4", "Squirtle", "A squirting turtle", 399.99, 10, "Pokemon",
+                "Squirtle Special Edition"));
         products.add(
                 new Product("T1", "Totoro", "A forest spirit", 399.99, 5, "Studio Ghibli", "Totoro Forest Edition"));
-        products.add(
-                new Product("T2", "Spirited Away", "A spirit world", 399.99, 8, "Studio Ghibli",
-                        "Spirited Away Collector's Edition"));
-        products.add(
-                new Product("T3", "Kiki", "A witch in training", 499.99, 4, "Studio Ghibli",
-                        "Kiki's Delivery Service Edition"));
-        products.add(
-                new Product("T4", "Howl", "A wizard with a heart", 499.99, 3, "Studio Ghibli",
-                        "Howl's Moving Castle Edition"));
-        
+        products.add(new Product("T2", "Spirited Away", "A spirit world", 399.99, 8, "Studio Ghibli",
+                "Spirited Away Collector's Edition"));
+        products.add(new Product("T3", "Kiki", "A witch in training", 499.99, 4, "Studio Ghibli",
+                "Kiki's Delivery Service Edition"));
+        products.add(new Product("T4", "Howl", "A wizard with a heart", 499.99, 3, "Studio Ghibli",
+                "Howl's Moving Castle Edition"));
+
         // Pass the shared product list to ManageProduct
         ManageProduct manageProduct = new ManageProduct(products);
         boolean mainMenuRunning = true;
@@ -108,7 +94,8 @@ public class OnlineShoppingSystem {
 
             System.out.println("1. Login as user");
             System.out.println("2. Login as admin");
-            System.out.println("3. Exit");
+            System.out.println("3. Register as user");
+            System.out.println("4. Exit");
             System.out.print("Choose an option: ");
             int menuChoice = scanner.nextInt();
             scanner.nextLine(); // consume newline
@@ -200,17 +187,23 @@ public class OnlineShoppingSystem {
 
                                 boolean shoppingCategory = true;
                                 while (shoppingCategory) {
-                                    System.out.println("\nProducts in " + selectedCategory + ":");
+                                    System.out.println("\n===================================================================================");
+                                    System.out.println("                           Products in " + selectedCategory);
+                                    System.out.println("===================================================================================");
+                                    System.out.printf("%-5s %-10s %-20s %-10s %-30s\n", "No.", "ID", "Name", "Price",
+                                            "Description");
+                                    System.out.println("-----------------------------------------------------------------------------------");
+
                                     for (int i = 0; i < categoryProducts.size(); i++) {
                                         Product p = categoryProducts.get(i);
-                                        System.out.printf("%-10s %-20s $%-10.2f [%s]\n", p.getProductID(),
-                                                p.getProductName(), p.getPrice(), p.getDescription());
+                                        System.out.printf("%-5d %-10s %-20s $%-9.2f %-30s\n",
+                                                (i + 1), p.getProductID(), p.getProductName(), p.getPrice(),
+                                                p.getDescription());
                                     }
-                                    System.out.println((categoryProducts.size() + 1) + ". Back to Categories"); // Back
-                                                                                                                // as a
-                                                                                                                // number
+                                    System.out
+                                            .println("-----------------------------------------------------------------------------------");
+                                    System.out.println((categoryProducts.size() + 1) + ". Back to Categories");
                                     System.out.print("Select a product by number: ");
-
                                     String input = scanner.nextLine();
 
                                     int productChoice;
@@ -259,10 +252,91 @@ public class OnlineShoppingSystem {
                         case 2: // === View Cart ===
                             System.out.println("\n--- Your Cart ---");
                             loggedInCustomer.viewCart(); // You should implement this method
+
                             System.out.print("Do you want to proceed to payment? (Y/N): ");
                             scanner.nextLine(); // consume newline
                             String confirm = scanner.nextLine();
-                            if (confirm.equalsIgnoreCase("yes")) {
+                            if (confirm.equalsIgnoreCase("N")) {
+                                System.out.println("Returning to menu...");
+                                break; // Return to menu
+                            }
+                            if (confirm.equalsIgnoreCase("Y")) {
+                                String orderId = UUID.randomUUID().toString();
+                                double totalAmount = loggedInCustomer.getShoppingCart().getTotalAmountWithTax();
+
+                                if (totalAmount <= 0) {
+                                    System.out.println(
+                                            "Your cart is empty or the total amount is invalid. Cannot proceed to payment.");
+                                    shopping = false; // Exit the payment process
+                                }
+
+                                // === Create Payment Object ===
+                                Payment payment = new Payment(
+                                        orderId,
+                                        totalAmount,
+                                        loggedInCustomer.getUserId(),
+                                        loggedInCustomer.getName(),
+                                        loggedInCustomer.getEmail(),
+                                        loggedInCustomer.getPhone(),
+                                        loggedInCustomer.getAddress());
+
+                                // === Select Payment Method ===
+                                System.out.println("\nSelect Payment Method:");
+                                System.out.println("1. Credit Card");
+                                System.out.println("2. Debit Card");
+                                System.out.println("3. PayPal");
+                                System.out.println("4. Bank Transfer");
+                                System.out.print("Your choice: ");
+                                int methodChoice = scanner.nextInt();
+                                scanner.nextLine(); // consume newline
+
+                                Payment.PaymentMethod method = null;
+                                switch (methodChoice) {
+                                    case 1:
+                                        payment.selectPaymentMethod(Payment.PaymentMethod.CREDIT_CARD);
+                                        break;
+                                    case 2:
+                                        payment.selectPaymentMethod(Payment.PaymentMethod.DEBIT_CARD);
+                                        break;
+                                    case 3:
+                                        payment.selectPaymentMethod(Payment.PaymentMethod.PAYPAL);
+                                        break;
+                                    case 4:
+                                        payment.selectPaymentMethod(Payment.PaymentMethod.BANK_TRANSFER);
+                                        break;
+                                    default:
+                                        System.out.println("Invalid payment method. Payment aborted.");
+                                        return;// Abort payment process
+                                }
+
+                                // === Process Payment ===
+                                payment.selectPaymentMethod(method);
+
+                                boolean success = payment.processPayment(loggedInCustomer);
+
+                                if (!success) {
+                                    System.out.print("Retry payment? (Y/N): ");
+                                    String retry = scanner.nextLine();
+                                    if (retry.equalsIgnoreCase("Y")) {
+                                        success = payment.retryPayment(loggedInCustomer);
+                                        if (success) {
+                                            System.out.println("Payment retry successful.");
+                                        } else {
+                                            System.out.println("Payment retry failed.");
+                                        }
+                                    }
+                                }
+
+                                System.out.println("\n--- Payment Summary ---");
+                                System.out.println(payment);
+
+                                if (payment.getStatus() == Payment.TransactionStatus.SUCCESS) {
+                                    System.out.print("Do you want to request a refund? (Y/N): ");
+                                    String refundChoice = scanner.nextLine();
+                                    if (refundChoice.equalsIgnoreCase("Y")) {
+                                        payment.requestRefund();
+                                    }
+                                }
                                 loggedInCustomer.placeOrder();
                                 mainChoice = 0; // Reset mainChoice to avoid going back to the menu
                             }
@@ -296,7 +370,9 @@ public class OnlineShoppingSystem {
                             System.out.println("\n--- Admin Menu ---");
                             System.out.println("1. Manage Products");
                             System.out.println("2. Order list");
-                            System.out.println("3. Logout");
+                            System.out.println("3. Admin List");
+                            System.out.println("4. Customer List");
+                            System.out.println("5. Logout");
                             System.out.print("Choose an option: ");
                             int adminChoice = scanner.nextInt();
                             scanner.nextLine();
@@ -308,10 +384,33 @@ public class OnlineShoppingSystem {
 
                                 case 2:
                                     displayOrderList(); // Call the method to display orders
-
+                                    System.out.println("Press Enter to return to the Admin Menu...");
+                                    scanner.nextLine(); // Wait for Enter
                                     break;
 
                                 case 3:
+                                    System.out.println("Admin List:");
+                                    for (Admin a : admins) {
+                                        System.out.println(a.toString());
+                                    }
+                                    System.out.println("-------------------");
+                                    System.out.println("Total Admins: " + admins.length);
+                                    System.out.println("-------------------");
+                                    System.out.println("Press Enter to return to the Admin Menu...");
+                                    scanner.nextLine(); // Wait for Enter
+                                    break;
+
+                                case 4:
+                                    System.out.println("Customer List:");
+                                    for (Customer c : customers) {
+                                        System.out.println(c.toString());
+                                    }
+                                    System.out.println("-------------------");
+                                    System.out.println("Press Enter to return to the Admin Menu...");
+                                    scanner.nextLine(); // Wait for Enter
+                                    break;
+
+                                case 5:
                                     System.out.println("Logging out...");
                                     adminRunning = false;
                                     break;
@@ -328,6 +427,77 @@ public class OnlineShoppingSystem {
                     System.out.println("Invalid admin ID or password. Please try again.");
                 }
             } else if (menuChoice == 3) {
+                 // === Register a new user ===
+                 while (true) {
+                    System.out.print("Enter your name: ");
+                    String name = scanner.nextLine();
+
+                    // Check for duplicate name
+                    boolean duplicate = false;
+                    for (Customer c : customers) {
+                        if (c.getName().equalsIgnoreCase(name)) {
+                            System.out.println("Username already exists. Please choose a different name.\n");
+                            duplicate = true;
+                            break;
+                        }
+                    }
+                    if (duplicate) continue;
+
+                    String email;
+                    while (true) {
+                        System.out.print("Enter your email: ");
+                        email = scanner.nextLine();
+                        if (email.endsWith("@gmail.com")) break;
+                        System.out.println("Email must end with '@gmail.com'. Please try again.");
+                    }
+
+                    String phone;
+                    while (true) {
+                       System.out.print("Enter your phone number: ");
+                       phone = scanner.nextLine();
+                       if (phone.matches("\\d{10,}")) break; // Only digits, at least 10 digits
+                       System.out.println("Phone number must be at least 10 digits and contain only numbers.");
+                    }
+
+                    System.out.print("Enter your address: ");
+                    String address = scanner.nextLine();
+
+                    String password;
+                    while (true) {
+                        System.out.print("Create password (8 characters): ");
+                        password = scanner.nextLine();
+                        if (password.length() == 8) break;
+                        System.out.println("Password must be exactly 8 characters.");
+                    }
+
+                    
+                    // Check for duplicate password
+                    boolean passwordDuplicate = false;
+                    for (Customer c : customers) {
+                        if (c.getPassword().equals(password)) {
+                            System.out.println("Password is already in use. Please choose a different password.");
+                            passwordDuplicate = true;
+                            break;
+                        }
+                    }
+                
+                    if (passwordDuplicate) {
+                        System.out.println("Please re-enter your details to avoid duplicate password.\n");
+                        continue; // Ask for input again, don't exit the loop
+                    }
+
+                    // Generate customer ID starting from 5
+                    String userId = "C" + (customers.size() + 1);
+
+                    // Create new customer and add to list
+                    Customer newCustomer = new Customer(password, userId, name, email, phone, address);
+                    customers.add(newCustomer);
+                    System.out.println("Registration successful! You can now log in.\n");
+                    System.out.println("Press Enter to return to the main menu...");
+                    scanner.nextLine(); 
+                    break; // Exit loop after successful registration
+                }
+            } else if (menuChoice == 4) {
                 System.out.println("Exiting POP MART. Goodbye!");
                 mainMenuRunning = false;
             }
