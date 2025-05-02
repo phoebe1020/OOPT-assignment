@@ -1,5 +1,5 @@
-//Author: Lim Wan Yoke
-//Module: Product Management
+//Author: Lee Meng Yee, Lim Wan Yoke
+//Module: Order Management
 //System: Online Shopping System
 //Group: DFT1G12
 import java.util.List;

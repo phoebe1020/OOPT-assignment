@@ -56,9 +56,10 @@ public class Customer extends User {
         return password;
     }
 
-    public ShoppingCart getCart() {
-        return cart;
+    public ShoppingCart getShoppingCart() {
+        return this.cart;
     }
+    
     public List<Order> getOrderHistory() {
         return orderHistory;
     }
@@ -105,10 +106,6 @@ public class Customer extends User {
 
     public void clearCart() {
         cart.clear();
-    }
-
-    public ShoppingCart getShoppingCart() {
-        return this.cart;
     }
 
     @Override

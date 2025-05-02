@@ -1,5 +1,5 @@
 //Author: Melody Lee Xin Yue
-//Module: Product Management
+//Module: User Management
 //System: Online Shopping System
 //Group: DFT1G12
 import java.util.List;
