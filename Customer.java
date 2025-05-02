@@ -10,11 +10,8 @@ public class Customer extends User {
     private ShoppingCart cart;
     private List<Order> orderHistory;
 
-<<<<<<< HEAD
+
     public Customer(String password, String userId, String name, String email, String phone, String address) {
-=======
-    public Customer(String userId, String name, String email, String phone, String address) {
->>>>>>> 8fd5ec4e624c6d6d9edf848b2de33c2ccd0a460d
         super(userId, name, email, phone, address);
         this.password = password;
         this.cart = new ShoppingCart();
@@ -24,7 +21,6 @@ public class Customer extends User {
     public void addToCart(Product product, int quantity) {
         cart.addItem(product, quantity);
     }
-
     public void placeOrder() {
         if (cart.getItems().isEmpty()) {
             System.out.println("Your cart is empty. Please add items to your cart before placing an order.");
@@ -54,62 +50,50 @@ public class Customer extends User {
     public String getPassword() {
         return password;
     }
-    
+
     public ShoppingCart getCart() {
         return cart;
     }
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> 8fd5ec4e624c6d6d9edf848b2de33c2ccd0a460d
     public List<Order> getOrderHistory() {
         return orderHistory;
     }
 
-<<<<<<< HEAD
     public void setPassword(String password) {
         this.password = password;
     }
    
-=======
->>>>>>> 8fd5ec4e624c6d6d9edf848b2de33c2ccd0a460d
     public void setCart(ShoppingCart cart) {
         this.cart = cart;
     }
-
     public void setOrderHistory(List<Order> orderHistory) {
         this.orderHistory = orderHistory;
     }
-
     public void updateCart(ShoppingCart cart) {
         this.cart = cart;
     }
-
     public void updateOrderHistory(List<Order> orderHistory) {
         this.orderHistory = orderHistory;
     }
-
+   
     public void updateCustomerId(String customerId) {
-        super.setUserId(customerId);
+        super.setUserId(customerId); 
     }
-
+    
     public void updateName(String name) {
-        super.setName(name);
+        super.setName(name); 
     }
-
+    
     public void updateEmail(String email) {
         super.setEmail(email);
-    }
-
+    } 
+    
     public void updatePhone(String phone) {
         super.setPhone(phone);
     }
-
+    
     public void updateAddress(String address) {
         super.setAddress(address);
     }
-
     public void viewCart() {
         cart.viewCart();
     }
