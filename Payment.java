@@ -15,6 +15,8 @@ public class Payment extends User {
     private String method; // Represents the payment method (e.g., CREDIT_CARD, PAYPAL)
     private String status;
     private LocalDateTime paymentDate;
+    private ShoppingCart cart;
+    private Customer customer;
 
     // Replace PaymentMethod enum with String constants
     public static final String PAYMENT_METHOD_CREDIT_CARD = "CREDIT_CARD";
@@ -54,9 +56,9 @@ public class Payment extends User {
 
     public void setMethod(String method) {
         if (!method.equals(PAYMENT_METHOD_CREDIT_CARD) &&
-            !method.equals(PAYMENT_METHOD_DEBIT_CARD) &&
-            !method.equals(PAYMENT_METHOD_PAYPAL) &&
-            !method.equals(PAYMENT_METHOD_BANK_TRANSFER)) {
+                !method.equals(PAYMENT_METHOD_DEBIT_CARD) &&
+                !method.equals(PAYMENT_METHOD_PAYPAL) &&
+                !method.equals(PAYMENT_METHOD_BANK_TRANSFER)) {
             System.out.println("Invalid method.");
             return;
         }
@@ -104,9 +106,9 @@ public class Payment extends User {
 
     public void selectPaymentMethod(String method) {
         if (!method.equals(PAYMENT_METHOD_CREDIT_CARD) &&
-            !method.equals(PAYMENT_METHOD_DEBIT_CARD) &&
-            !method.equals(PAYMENT_METHOD_PAYPAL) &&
-            !method.equals(PAYMENT_METHOD_BANK_TRANSFER)) {
+                !method.equals(PAYMENT_METHOD_DEBIT_CARD) &&
+                !method.equals(PAYMENT_METHOD_PAYPAL) &&
+                !method.equals(PAYMENT_METHOD_BANK_TRANSFER)) {
             System.out.println("Invalid method.");
             return;
         }
@@ -154,7 +156,22 @@ public class Payment extends User {
             break;
         }
 
+        // Simulate payment
+        System.out.println("Processing...");
+        try {
+            Thread.sleep(3000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (Math.random() > 0.8) {
+            status = STATUS_FAILED;
+            System.out.println("Payment failed.");
+            return false;
+        }
+
         status = STATUS_SUCCESS;
+        System.out.println("Payment successful.");
         return true;
     }
 
@@ -178,23 +195,46 @@ public class Payment extends User {
 
     @Override
     public String toString() {
-        return "=============================\n" +
-                "        PAYMENT RECEIPT\n" +
-                "=============================\n" +
+        String receipt = 
+                "===============================================================\n" +
+                "                      PAYMENT RECEIPT\n" +
+                "===============================================================\n" +
                 "Payment ID   : " + paymentId + "\n" +
                 "Order ID     : " + orderId + "\n" +
-                "Name         : " + getName() + "\n" +
-                "Email        : " + getEmail() + "\n" +
-                "Phone        : " + getPhone() + "\n" +
-                "Address      : " + getAddress() + "\n" +
-                "-------------------------------\n" +
-                "Amount Paid  : " + amount + "\n" +
-                "Method       : " + method + "\n" +
-                "Status       : " + status + "\n" +
-                "Payment Date : " + paymentDate + "\n" +
-                "=============================\n" +
-                " THANK YOU FOR YOUR PAYMENT!" +
-                "\n=============================";
+                "Name         : " + customer.getName() + "\n" +
+                "Email        : " + customer.getEmail() + "\n" +
+                "Phone        : " + customer.getPhone() + "\n" +
+                "Address      : " + customer.getAddress() + "\n" +
+                "-----------------------------------------------------------------\n";
+
+        
+        receipt += String.format("%-20s %-10s %-10s %-10s\n", "Product", "Price", "Qty", "Subtotal");
+        receipt += "-----------------------------------------------------------------\n";
+
+        double grandTotal = 0.0; 
+        if (cart != null && !cart.isEmpty()) {
+            for (OrderItem item : cart.getItems()) {
+                double subtotal = item.getTotal();
+                grandTotal += subtotal; 
+                receipt += String.format("%-20s %-10.2f %-10d %-10.2f\n",
+                        item.getProduct().getProductName(),
+                        item.getProduct().getPrice(),
+                        item.getQuantity(),
+                        subtotal);
+            }
+        }
+
+        receipt += "-----------------------------------------------------------------\n";
+        receipt += String.format("Subtotal    : %.2f\n", grandTotal);
+        receipt += String.format("Amount Paid : %.2f\n", amount);
+        receipt += String.format("Method      : %s\n", method);
+        receipt += String.format("Status      : %s\n", status);
+        receipt += "Payment Date : " + paymentDate + "\n";
+
+        receipt += "===============================================================\n " +
+                " THANK YOU FOR YOUR PAYMENT!";
+
+        return receipt;
     }
 
     public String getDetails() {
