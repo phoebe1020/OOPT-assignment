@@ -7,6 +7,9 @@ import java.util.UUID;
 // Main class//////////////////////////////////////////////////////////////////////
 public class OnlineShoppingSystem {
     public static List<Order> orderList = new ArrayList<>();
+    public static List<Review> reviews = new ArrayList<>();
+
+
 
     public static void clearScreen() {
         try {
@@ -49,6 +52,16 @@ public class OnlineShoppingSystem {
         admins[1] = new Admin("AMD002", "Zayne", "zayne@gmail.com", "022222222", "Lily Street", "Zayne123");
         admins[2] = new Admin("AMD003", "Rafayel", "rafayel@gmail.com", "033333333", "Jellyfish Street", "Rafayel123");
 
+        // Create reviews
+        Review.addReview("C1", "Siow", "Walao why the prices are so expensive!", 1);
+        Review.addReview("C2", "Melody", "Cool, cool.", 3);
+        Review.addReview("C3", "Phoebe", "I want more cinnamoroll aghhhhhhhh!", 5);   
+
+
+
+
+        List<Review> reviews = new ArrayList<>();
+        reviews.add(new Review("C1", "P1", 5, "Amazing product! Love it!"));        
         // Create a shared product list
         List<Product> products = new ArrayList<>();
         products.add(new Product("P1", "Crybaby", "Always crying baby", 1500.00, 10, "Popmart",
@@ -133,7 +146,8 @@ public class OnlineShoppingSystem {
                     System.out.println("\n--- POP MART MENU ---");
                     System.out.println("1. Order Products");
                     System.out.println("2. View Cart");
-                    System.out.println("3. Logout");
+                    System.out.println("3. Review");
+                    System.out.println("4. Exit");
                     System.out.print("Choose an option: ");
                     int mainChoice = scanner.nextInt();
 
@@ -343,7 +357,65 @@ public class OnlineShoppingSystem {
                             }
                             break;
 
-                        case 3: // === Exit ===
+                        case 3: // === Review ===
+                        boolean reviewRunning = true;
+                        while (reviewRunning) {
+                            System.out.println("\n--- Review Menu ---");
+                            System.out.println("1. Add a Review");
+                            System.out.println("2. View Reviews");
+                            System.out.println("3. Back to Main Menu");
+                            System.out.print("Choose an option: ");
+                            int reviewChoice = scanner.nextInt();
+                            scanner.nextLine(); 
+                    
+                            switch (reviewChoice) {
+                                case 1: // Add a Review
+                               
+                                if (loggedInCustomer != null) {
+                                    System.out.print("Enter your review comment: ");
+                                    String comment = scanner.nextLine();
+                                    System.out.print("Enter your rating (1-5): ");
+                                    int rating = scanner.nextInt();
+                                    scanner.nextLine(); // Consume newline
+                
+                                    Review.addReview(loggedInCustomer.getUserId(), loggedInCustomer.getName(), comment, rating);
+                                } else {
+                                    System.out.println("You must be logged in to add a review.");
+                                }
+                                break;
+                
+
+                    
+                                case 2: // View Reviews
+                                Review.viewReviews();
+                                System.out.println("---Learn More---");
+                                System.out.println("-------------------");  
+                                System.out.println("Wanna know why the customer details are censored? (Y/N): ");
+                                String learnMore = scanner.nextLine();
+                                if (learnMore.equalsIgnoreCase("Y")) {
+                                    System.out.println("\nCustomer details are censored for privacy and security reasons.");
+                                    System.out.println("\nThus, we only display the basic information of the customer.");
+                                    System.out.println("\nWe value your privacy and take data protection seriously.");
+                                } else if (learnMore.equalsIgnoreCase("N")) {
+                                    System.out.println("Thank you for understanding!");
+                                } else {
+                                    System.out.println("Returning to review menu...");
+                                }
+                                System.out.println("Press Enter to continue...");
+
+                                break;
+                    
+                                case 3:
+                                    reviewRunning = false;
+                                    break;
+                    
+                                default:
+                                    System.out.println("Invalid option. Please try again.");
+                            }
+                        }
+                            break;
+
+                        case 4: // === Exit ===
                             System.out.println("Thank you for visiting POP MART. Goodbye!");
                             customerRunning = false;
                             break;
@@ -370,9 +442,9 @@ public class OnlineShoppingSystem {
                         while (adminRunning) {
                             System.out.println("\n--- Admin Menu ---");
                             System.out.println("1. Manage Products");
-                            System.out.println("2. Order list");
-                            System.out.println("3. Admin List");
-                            System.out.println("4. Manage Customers");
+                            System.out.println("2. Manage Customers");
+                            System.out.println("3. Order List");
+                            System.out.println("4. Admin List");
                             System.out.println("5. Logout");
                             System.out.print("Choose an option: ");
                             int adminChoice = scanner.nextInt();
@@ -384,12 +456,19 @@ public class OnlineShoppingSystem {
                                     break;
 
                                 case 2:
-                                    displayOrderList(); // Call the method to display orders
+                                manageCustomer.manageCustomerMenu();
+                                    System.out.println("-------------------");
                                     System.out.println("Press Enter to return to the Admin Menu...");
-                                    scanner.nextLine(); // Wait for Enter
+                                    scanner.nextLine(); 
                                     break;
 
                                 case 3:
+                                displayOrderList();
+                                    System.out.println("Press Enter to return to the Admin Menu...");
+                                    scanner.nextLine(); 
+                                    break;
+        
+                                    case 4:
                                     System.out.println("Admin List:");
                                     for (Admin a : admins) {
                                         System.out.println(a.toString());
@@ -398,14 +477,7 @@ public class OnlineShoppingSystem {
                                     System.out.println("Total Admins: " + admins.length);
                                     System.out.println("-------------------");
                                     System.out.println("Press Enter to return to the Admin Menu...");
-                                    scanner.nextLine(); // Wait for Enter
-                                    break;
-
-                                    case 4:
-                                    manageCustomer.manageCustomerMenu();
-                                    System.out.println("-------------------");
-                                    System.out.println("Press Enter to return to the Admin Menu...");
-                                    scanner.nextLine(); // Wait for Enter
+                                    scanner.nextLine(); 
                                         break; 
                                         
                                         case 5:

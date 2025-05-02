@@ -1,3 +1,7 @@
+//Author: Melody Lee Xin Yue
+//Module: Product Management
+//System: Online Shopping System
+//Group: DFT1G12
 import java.util.List;
 import java.util.Scanner;
 
@@ -39,6 +43,7 @@ class ManageCustomer {
                     for (Customer c : customers) {
                         System.out.println(c.toString());
                     }
+                    System.out.println("Total Customers: " + customers.size());
                     System.out.println("-------------------");
                     break;
 
