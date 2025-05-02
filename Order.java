@@ -14,7 +14,7 @@ public class Order {
     private LocalDateTime orderDate;
     private OrderStatus status;
     private Payment payment;
-    public static final double TAX_RATE = 0.10;
+    public static double TAX_RATE = 0.10;
 
     public Order(Customer customer, List<OrderItem> items) {
         this.orderId = UUID.randomUUID().toString();
