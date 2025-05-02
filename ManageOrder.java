@@ -17,6 +17,13 @@ class ManageOrder {
     public void manageOrderMenu() {
         boolean managingOrders = true;
 
+        if (orders.isEmpty()) {
+            System.out.println("There are currently no orders.");
+            System.out.println("Press Enter to return to the Admin Menu...");
+            scanner.nextLine();
+            return;
+        }
+
         while (managingOrders) {
             System.out.println("\n--- Manage Orders ---");
             System.out.println("1. View All Orders");

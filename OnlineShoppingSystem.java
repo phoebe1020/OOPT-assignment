@@ -473,8 +473,6 @@ public class OnlineShoppingSystem {
                                 case 3:
                                     displayOrderList();
                                     manageOrder.manageOrderMenu();
-                                    System.out.println("Press Enter to return to the Admin Menu...");
-                                    scanner.nextLine();
                                     break;
 
                                 case 4:
