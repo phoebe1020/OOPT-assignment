@@ -54,12 +54,7 @@ public class Order {
         }
     }
 
-    public void returnOrder() {
-        if (status.equals(STATUS_PROCESSING)) {
-            this.status = STATUS_RETURNED;
-            refundPayment();
-        }
-    }
+    
 
     public void cancelOrder() {
         if (status.equals(STATUS_PROCESSING)) {
@@ -71,6 +66,12 @@ public class Order {
     private void refundPayment() {
         this.status = STATUS_REFUNDED;
     }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    
 
     public String getOrderId() {
         return orderId;

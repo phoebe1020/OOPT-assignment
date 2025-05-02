@@ -87,6 +87,7 @@ public class OnlineShoppingSystem {
         // Pass the shared product list to ManageProduct
         ManageProduct manageProduct = new ManageProduct(products);
         ManageCustomer manageCustomer = new ManageCustomer(customers);
+        ManageOrder manageOrder = new ManageOrder(orderList);
         boolean mainMenuRunning = true;
 
         while (mainMenuRunning) {
@@ -394,6 +395,7 @@ public class OnlineShoppingSystem {
 
                                 case 2:
                                     displayOrderList(); // Call the method to display orders
+                                    manageOrder.manageOrderMenu();
                                     System.out.println("Press Enter to return to the Admin Menu...");
                                     scanner.nextLine(); // Wait for Enter
                                     break;
