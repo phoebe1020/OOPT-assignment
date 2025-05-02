@@ -39,7 +39,6 @@ public class Payment extends User {
         this.paymentId = UUID.randomUUID().toString();
         this.orderId = orderId;
         this.amount = amount;
-        this.customer = customer;
         this.status = STATUS_PENDING;
         this.paymentDate = LocalDateTime.now();
     }
