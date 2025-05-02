@@ -21,10 +21,7 @@ public class Admin extends User {
 
   @Override
   public String toString() {
-    return String.format(
-      super.toString()
-
-    );
+    return String.format(super.toString());
   }
 
 }
