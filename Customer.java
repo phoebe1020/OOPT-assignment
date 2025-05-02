@@ -1,4 +1,4 @@
-//Author: Siow Wern Qin, Melody Lee
+//Author: Siow Wern Qin
 //Module: User Management
 //System: Online Shopping System
 //Group: DFT1G12
@@ -59,7 +59,7 @@ public class Customer extends User {
     public ShoppingCart getShoppingCart() {
         return this.cart;
     }
-    
+
     public List<Order> getOrderHistory() {
         return orderHistory;
     }

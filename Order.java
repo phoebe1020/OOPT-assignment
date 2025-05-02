@@ -1,4 +1,4 @@
-//Author: Lim Wan Yoke, Melody Lee Xin Yue
+//Author: Lim Wan Yoke
 //Module: Order Management
 //System: Online Shopping System
 //Group: DFT1G12

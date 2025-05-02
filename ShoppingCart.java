@@ -1,4 +1,4 @@
-//Author: Lim Wan Yoke, Siow Wern Qin，Lee Meng Yee
+//Author: Lim Wan Yoke
 //Module: Purchase Management
 //System: Online Shopping System
 //Group: DFT1G12
