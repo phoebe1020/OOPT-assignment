@@ -12,16 +12,23 @@ public class Order {
     private Customer customer;
     private List<OrderItem> items;
     private LocalDateTime orderDate;
-    private OrderStatus status;
+    private String status;
     private Payment payment;
     public static final double TAX_RATE = 0.10;
+
+    public static final String STATUS_PENDING = "PENDING";
+    public static final String STATUS_PROCESSING = "PROCESSING";
+    public static final String STATUS_COMPLETED = "COMPLETED";
+    public static final String STATUS_CANCELLED = "CANCELLED";
+    public static final String STATUS_RETURNED = "RETURNED";
+    public static final String STATUS_REFUNDED = "REFUNDED";
 
     public Order(Customer customer, List<OrderItem> items) {
         this.orderId = UUID.randomUUID().toString();
         this.customer = customer;
         this.items = new ArrayList<>(items);
         this.orderDate = LocalDateTime.now();
-        this.status = OrderStatus.PENDING;
+        this.status = STATUS_PENDING;
     }
 
     public void checkout() {
@@ -36,7 +43,7 @@ public class Order {
 
     private void processPayment() {
         if (payment.processPayment(customer)) {
-            this.status = OrderStatus.PROCESSING;
+            this.status = STATUS_PROCESSING;
             updateInventory();
         }
     }
@@ -48,21 +55,21 @@ public class Order {
     }
 
     public void returnOrder() {
-        if (status == OrderStatus.PROCESSING) {
-            this.status = OrderStatus.RETURNED;
+        if (status.equals(STATUS_PROCESSING)) {
+            this.status = STATUS_RETURNED;
             refundPayment();
         }
     }
 
     public void cancelOrder() {
-        if (status == OrderStatus.PROCESSING) {
-            this.status = OrderStatus.CANCELLED;
+        if (status.equals(STATUS_PROCESSING)) {
+            this.status = STATUS_CANCELLED;
             refundPayment();
         }
     }
 
     private void refundPayment() {
-        this.status = OrderStatus.REFUNDED;
+        this.status = STATUS_REFUNDED;
     }
 
     public String getOrderId() {
@@ -81,7 +88,7 @@ public class Order {
         return calculateTotal();
     }
 
-    public OrderStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
@@ -134,7 +141,7 @@ public class Order {
     }
 
     public void completeOrder() {
-        if (status != OrderStatus.PENDING) {
+        if (!status.equals(STATUS_PENDING)) {
             System.out.println("Order cannot be completed. Current status: " + status);
             return;
         }
@@ -143,7 +150,7 @@ public class Order {
         this.payment = new Payment(this.orderId, total);
 
         if (payment.processPayment(customer)) {
-            this.status = OrderStatus.COMPLETED;
+            this.status = STATUS_COMPLETED;
             updateInventory();
             System.out.println("Order completed successfully! Order ID: " + orderId);
         } else {
