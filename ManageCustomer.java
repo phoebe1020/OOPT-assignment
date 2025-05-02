@@ -71,9 +71,6 @@ class ManageCustomer {
         String phone = scanner.nextLine();
         System.out.print("Enter Address: ");
         String address = scanner.nextLine();
-        
-
-
 
         customers.add(new Customer(userId, name, email, phone, address));
         // Add the new customer to the list
@@ -92,7 +89,7 @@ class ManageCustomer {
                 System.out.println("2. Update Email");
                 System.out.println("3. Update Phone");
                 System.out.println("4. Update Address");
-             
+
                 System.out.print("Choose an option: ");
                 int choice = scanner.nextInt();
                 scanner.nextLine(); // Consume newline
@@ -114,7 +111,7 @@ class ManageCustomer {
                         System.out.print("Enter new Address: ");
                         customer.setAddress(scanner.nextLine());
                         break;
-                   
+
                     default:
                         System.out.println("Invalid option.");
                 }
@@ -140,5 +137,4 @@ class ManageCustomer {
         System.out.println("Customer not found.");
     }
 
- 
 }
