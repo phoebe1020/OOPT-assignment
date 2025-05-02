@@ -1,3 +1,4 @@
+
 //Author: Lee Meng Yee
 //Module: Purchase Management
 //System: Online Shopping System
@@ -11,20 +12,32 @@ public class Payment extends User {
     private String paymentId;
     private String orderId;
     private double amount;
-    private PaymentMethod method; // Represents the payment method (e.g., CREDIT_CARD, PAYPAL)
-    private TransactionStatus status;
+    private String method; // Represents the payment method (e.g., CREDIT_CARD, PAYPAL)
+    private String status;
     private LocalDateTime paymentDate;
+
+    // Replace PaymentMethod enum with String constants
+    public static final String PAYMENT_METHOD_CREDIT_CARD = "CREDIT_CARD";
+    public static final String PAYMENT_METHOD_DEBIT_CARD = "DEBIT_CARD";
+    public static final String PAYMENT_METHOD_PAYPAL = "PAYPAL";
+    public static final String PAYMENT_METHOD_BANK_TRANSFER = "BANK_TRANSFER";
+
+    // Replace TransactionStatus enum with String constants
+    public static final String STATUS_PENDING = "PENDING";
+    public static final String STATUS_SUCCESS = "SUCCESS";
+    public static final String STATUS_FAILED = "FAILED";
+    public static final String STATUS_REFUNDED = "REFUNDED";
 
     public Payment(String orderId, double amount, String customerId, String name, String email, String phone,
             String address) {
         super(customerId, name, email, phone, address);
         if (amount <= 0) {
-            throw new IllegalArgumentException("Payment amount must be greater than zero.");// > RM 0;
+            throw new IllegalArgumentException("Payment amount must be greater than zero.");
         }
         this.paymentId = UUID.randomUUID().toString();
         this.orderId = orderId;
         this.amount = amount;
-        this.status = TransactionStatus.PENDING;
+        this.status = STATUS_PENDING;
         this.paymentDate = LocalDateTime.now();
     }
 
@@ -35,27 +48,20 @@ public class Payment extends User {
         this.amount = amount;
     }
 
-    // Enum to represent payment methods
-    public enum PaymentMethod {
-        CREDIT_CARD,
-        DEBIT_CARD,
-        PAYPAL,
-        BANK_TRANSFER
-    }
-
-    public enum TransactionStatus {
-        PENDING,
-        SUCCESS,
-        FAILED,
-        REFUNDED
-    }
-
-    public PaymentMethod getMethod() {
+    public String getMethod() {
         return method;
     }
 
-    public void setMethod(PaymentMethod method) {
+    public void setMethod(String method) {
+        if (!method.equals(PAYMENT_METHOD_CREDIT_CARD) &&
+            !method.equals(PAYMENT_METHOD_DEBIT_CARD) &&
+            !method.equals(PAYMENT_METHOD_PAYPAL) &&
+            !method.equals(PAYMENT_METHOD_BANK_TRANSFER)) {
+            System.out.println("Invalid method.");
+            return;
+        }
         this.method = method;
+        System.out.println("Selected: " + method);
     }
 
     // ...existing code...
@@ -80,11 +86,11 @@ public class Payment extends User {
         this.amount = amount;
     }
 
-    public TransactionStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(TransactionStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -96,8 +102,11 @@ public class Payment extends User {
         return paymentDate;
     }
 
-    public void selectPaymentMethod(PaymentMethod method) {
-        if (method == null) {
+    public void selectPaymentMethod(String method) {
+        if (!method.equals(PAYMENT_METHOD_CREDIT_CARD) &&
+            !method.equals(PAYMENT_METHOD_DEBIT_CARD) &&
+            !method.equals(PAYMENT_METHOD_PAYPAL) &&
+            !method.equals(PAYMENT_METHOD_BANK_TRANSFER)) {
             System.out.println("Invalid method.");
             return;
         }
@@ -108,7 +117,7 @@ public class Payment extends User {
     public boolean processPayment(Customer customers) {
         if (method == null) {
             System.out.println("No payment method selected.");
-            status = TransactionStatus.FAILED;
+            status = STATUS_FAILED;
             return false;
         }
 
@@ -116,8 +125,8 @@ public class Payment extends User {
 
         while (true) {
             switch (method) {
-                case CREDIT_CARD:
-                case DEBIT_CARD:
+                case PAYMENT_METHOD_CREDIT_CARD:
+                case PAYMENT_METHOD_DEBIT_CARD:
                     System.out.print("Enter card number (16 digits): ");
                     String cardInput = scanner.nextLine();
                     if (cardInput.length() != 16) {
@@ -125,7 +134,7 @@ public class Payment extends User {
                         continue;
                     }
                     break;
-                case PAYPAL:
+                case PAYMENT_METHOD_PAYPAL:
                     System.out.print("Enter PayPal email: ");
                     String email = scanner.nextLine();
                     if (customers.getEmail().equals(email)) {
@@ -135,7 +144,7 @@ public class Payment extends User {
                         continue;
                     }
                     break;
-                case BANK_TRANSFER:
+                case PAYMENT_METHOD_BANK_TRANSFER:
                     System.out.println("Processing bank transfer...");
                     break;
                 default:
@@ -145,12 +154,12 @@ public class Payment extends User {
             break;
         }
 
-        status = TransactionStatus.SUCCESS;
+        status = STATUS_SUCCESS;
         return true;
     }
 
     public boolean retryPayment(Customer customers) {
-        if (status != TransactionStatus.FAILED) {
+        if (!status.equals(STATUS_FAILED)) {
             System.out.println("Retry not needed.");
             return false;
         }
@@ -158,8 +167,8 @@ public class Payment extends User {
     }
 
     public boolean requestRefund() {
-        if (status == TransactionStatus.SUCCESS) {
-            status = TransactionStatus.REFUNDED;
+        if (status.equals(STATUS_SUCCESS)) {
+            status = STATUS_REFUNDED;
             System.out.println("Refunded.");
             return true;
         }
