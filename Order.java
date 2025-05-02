@@ -32,6 +32,7 @@ public class Order {
 
     public void checkout() {
         double total = calculateTotal();
+        
         this.payment = new Payment(this.orderId, total);
         processPayment();
     }

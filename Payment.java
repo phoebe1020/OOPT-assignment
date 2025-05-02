@@ -39,14 +39,22 @@ public class Payment extends User {
         this.paymentId = UUID.randomUUID().toString();
         this.orderId = orderId;
         this.amount = amount;
+        this.customer = customer;
         this.status = STATUS_PENDING;
         this.paymentDate = LocalDateTime.now();
     }
 
     // New constructor to match the usage in Customer.java
-    public Payment(String paymentId, double amount) {
-        super("CustomerId", "Name", "Email", "Phone", "Address");
+    public Payment(String paymentId, double amount, Customer customer) {
+        super(customer.getUserId(), customer.getName(), customer.getEmail(), customer.getPhone(), customer.getAddress());
         this.paymentId = paymentId;
+        this.amount = amount;
+        this.customer = customer; 
+    }
+
+    public Payment(String orderId, double amount) {
+        super("defaultId", "defaultName", "defaultEmail", "defaultPhone", "defaultAddress");
+        this.orderId = orderId;
         this.amount = amount;
     }
 
@@ -195,43 +203,27 @@ public class Payment extends User {
 
     @Override
     public String toString() {
-        String receipt = 
-                "===============================================================\n" +
+        String receipt = "===============================================================\n" +
                 "                      PAYMENT RECEIPT\n" +
                 "===============================================================\n" +
                 "Payment ID   : " + paymentId + "\n" +
-                "Order ID     : " + orderId + "\n" +
-                "Name         : " + customer.getName() + "\n" +
-                "Email        : " + customer.getEmail() + "\n" +
-                "Phone        : " + customer.getPhone() + "\n" +
-                "Address      : " + customer.getAddress() + "\n" +
-                "-----------------------------------------------------------------\n";
+                "Order ID     : " + orderId + "\n";
 
-        
-        receipt += String.format("%-20s %-10s %-10s %-10s\n", "Product", "Price", "Qty", "Subtotal");
-        receipt += "-----------------------------------------------------------------\n";
-
-        double grandTotal = 0.0; 
-        if (cart != null && !cart.isEmpty()) {
-            for (OrderItem item : cart.getItems()) {
-                double subtotal = item.getTotal();
-                grandTotal += subtotal; 
-                receipt += String.format("%-20s %-10.2f %-10d %-10.2f\n",
-                        item.getProduct().getProductName(),
-                        item.getProduct().getPrice(),
-                        item.getQuantity(),
-                        subtotal);
-            }
+        if (customer != null) {
+            receipt += "Name         : " + customer.getName() + "\n" +
+                    "Email        : " + customer.getEmail() + "\n" +
+                    "Phone        : " + customer.getPhone() + "\n" +
+                    "Address      : " + customer.getAddress() + "\n";
+        } else {
+            receipt += "Customer information is not available.\n";
         }
 
         receipt += "-----------------------------------------------------------------\n";
-        receipt += String.format("Subtotal    : %.2f\n", grandTotal);
         receipt += String.format("Amount Paid : %.2f\n", amount);
         receipt += String.format("Method      : %s\n", method);
         receipt += String.format("Status      : %s\n", status);
         receipt += "Payment Date : " + paymentDate + "\n";
-
-        receipt += "===============================================================\n " +
+        receipt += "===============================================================\n" +
                 " THANK YOU FOR YOUR PAYMENT!";
 
         return receipt;
