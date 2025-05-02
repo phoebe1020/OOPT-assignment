@@ -83,4 +83,8 @@ public class ShoppingCart {
         double taxAmount = grandTotal * Order.TAX_RATE;
         return grandTotal + taxAmount;
     }
+
+    public boolean isEmpty() {
+        return items.isEmpty(); 
+    }
 }
