@@ -119,24 +119,55 @@ public class Order {
         sb.append(String.format("%-20s %-10s %-10s %-10s\n", "Product", "Price", "Qty", "Total"));
         sb.append("-------------------------------------------------------\n");
         for (OrderItem item : items) {
-            sb.append(String.format("%-20s $%-9.2f %-10d $%-10.2f\n",
+            sb.append(String.format("%-20s RM%-9.2f %-10d RM%-10.2f\n",
                     item.getProduct().getProductName(),
                     item.getProduct().getPrice(),
                     item.getQuantity(),
                     item.getTotal()));
         }
         sb.append("-------------------------------------------------------\n");
-        sb.append(String.format("Subtotal      : $%.2f\n", getTotalPrice()));
-        sb.append(String.format("Tax (10%%)     : $%.2f\n", getTotalPrice() * TAX_RATE));
-        sb.append(String.format("Total (w/Tax) : $%.2f\n", getTotalPriceWithTax()));
+        sb.append(String.format("Subtotal      : RM%.2f\n", getTotalPrice()));
+        sb.append(String.format("Tax (10%%)     : RM%.2f\n", getTotalPrice() * TAX_RATE));
+        sb.append(String.format("Total (w/Tax) : RM%.2f\n", getTotalPriceWithTax()));
         sb.append("=======================================================\n");
 
         return sb.toString();
     }
 
     public String getOrderSummary() {
-        return String.format("Order ID: %s | Customer: %s | Total: $%.2f | Status: %s",
+        return String.format("Order ID: %s | Customer: %s | Total: RM%.2f | Status: %s",
                 orderId, customer.getName(), getTotalPrice(), status);
+    }
+
+    public String getOrderHistoryDetails() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("=======================================================\n");
+        sb.append("                     ORDER HISTORY                     \n");
+        sb.append("=======================================================\n");
+        sb.append(String.format("Order ID      : %s\n", orderId));
+        sb.append(String.format("Customer Name : %s\n", customer.getName()));
+        sb.append(String.format("Address       : %s\n", customer.getAddress()));
+        sb.append(String.format("Phone         : %s\n", customer.getPhone()));
+        sb.append(String.format("Order Date    : %s\n", getOrderDate()));
+        sb.append(String.format("Status        : %s\n", status));
+        sb.append("-------------------------------------------------------\n");
+        sb.append("Items:\n");
+        sb.append(String.format("%-20s %-10s %-10s %-10s\n", "Product", "Price", "Qty", "Total"));
+        sb.append("-------------------------------------------------------\n");
+        for (OrderItem item : items) {
+            sb.append(String.format("%-20s RM%-9.2f %-10d RM%-10.2f\n",
+                    item.getProduct().getProductName(),
+                    item.getProduct().getPrice(),
+                    item.getQuantity(),
+                    item.getTotal()));
+        }
+        sb.append("-------------------------------------------------------\n");
+        sb.append(String.format("Subtotal      : RM%.2f\n", getTotalPrice()));
+        sb.append(String.format("Tax (10%%)     : RM%.2f\n", getTotalPrice() * TAX_RATE));
+        sb.append(String.format("Total (w/Tax) : RM%.2f\n", getTotalPriceWithTax()));
+        sb.append("=======================================================\n");
+
+        return sb.toString();
     }
 
     public void completeOrder() {
