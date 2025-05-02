@@ -1,3 +1,4 @@
+
 //Author: Melody Lee, Lim Wan Yoke
 //Module: Order Management
 //System: Online Shopping System
@@ -100,19 +101,29 @@ public class Order {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Order ID: ").append(orderId).append("\n");
-        sb.append("Customer: ").append(customer.getName()).append("\n");
-        sb.append("Order Date: ").append(getOrderDate()).append("\n");
-        sb.append("Status: ").append(status).append("\n");
+        sb.append("=======================================================\n");
+        sb.append("                     ORDER DETAILS                     \n");
+        sb.append("=======================================================\n");
+        sb.append(String.format("Order ID      : %s\n", orderId));
+        sb.append(String.format("Customer Name : %s\n", customer.getName()));
+        sb.append(String.format("Order Date    : %s\n", getOrderDate()));
+        sb.append(String.format("Status        : %s\n", status));
+        sb.append("-------------------------------------------------------\n");
         sb.append("Items:\n");
+        sb.append(String.format("%-20s %-10s %-10s %-10s\n", "Product", "Price", "Qty", "Total"));
+        sb.append("-------------------------------------------------------\n");
         for (OrderItem item : items) {
-            sb.append("  - ").append(item.getProduct().getProductName())
-                    .append(" (Quantity: ").append(item.getQuantity())
-                    .append(", Total: $").append(item.getTotal()).append(")\n");
+            sb.append(String.format("%-20s $%-9.2f %-10d $%-10.2f\n",
+                    item.getProduct().getProductName(),
+                    item.getProduct().getPrice(),
+                    item.getQuantity(),
+                    item.getTotal()));
         }
-        sb.append("Total Price: $").append(String.format("%.2f", getTotalPrice())).append("\n");
-        sb.append("Total Price (include tax=10%): $").append(String.format("%.2f", getTotalPriceWithTax()))
-                .append("\n");
+        sb.append("-------------------------------------------------------\n");
+        sb.append(String.format("Subtotal      : $%.2f\n", getTotalPrice()));
+        sb.append(String.format("Tax (10%%)     : $%.2f\n", getTotalPrice() * TAX_RATE));
+        sb.append(String.format("Total (w/Tax) : $%.2f\n", getTotalPriceWithTax()));
+        sb.append("=======================================================\n");
 
         return sb.toString();
     }

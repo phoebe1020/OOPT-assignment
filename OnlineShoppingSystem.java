@@ -51,53 +51,38 @@ public class OnlineShoppingSystem {
 
         // Create a shared product list
         List<Product> products = new ArrayList<>();
-        products.add(
-                new Product("P1", "Crybaby", "Always crying baby", 1500.00, 10, "Popmart",
-                        "Crybaby For Love Edition"));
-        products.add(
-                new Product("P2", "Labubu", "Just a monster..", 999.99, 20, "Popmart",
-                        "Labubu Cherry Blossom Series"));
-        products.add(
-                new Product("P3", "Zimomo", "Literally a labubu with a tail", 999.99, 7, "Popmart",
-                        "The Zimomo Collection"));
-        products.add(
-                new Product("P4", "Dino", "A dinosaur", 799.99, 5, "Popmart",
-                        "The Dino Collection"));
-        products.add(
-                new Product("S1", "Cinnamoroll", "Cute little baby", 499.99, 15, "Sanrio",
-                        "Special Cinnamoroll Plush"));
-        products.add(
-                new Product("S2", "Hello Kitty", "A cat-like human", 299.99, 30, "Sanrio",
-                        "Hello Kitty Anniversary Edition"));
-        products.add(
-                new Product("S3", "Pompompurin", "A dog made of pudding", 249.99, 12, "Sanrio",
-                        "Pompompurin Bakery Series"));
-        products.add(
-                new Product("S4", "Melody", "Not the one in our group", 349.99, 18, "Sanrio",
-                        "My Melody Sweet Series"));
-        products.add(
-                new Product("PK1", "Pikachu", "Electric mouse", 199.99, 25, "Pokemon",
-                        "Pikachu Special Edition"));
-        products.add(
-                new Product("PK2", "Eevee", "A cute little fox (Phoebe's fav)", 299.99, 22, "Pokemon",
-                        "Eevee Special Edition"));
-        products.add(
-                new Product("PK3", "Jigglypuff", "A dedicated singer", 599.99, 6, "Pokemon",
-                        "Jigglypuff Special Edition"));
-        products.add(
-                new Product("PK4", "Squirtle", "A squirting turtle", 399.99, 10, "Pokemon",
-                        "Squirtle Special Edition"));
+        products.add(new Product("P1", "Crybaby", "Always crying baby", 1500.00, 10, "Popmart",
+                "Crybaby For Love Edition"));
+        products.add(new Product("P2", "Labubu", "Just a monster..", 999.99, 20, "Popmart",
+                "Labubu Cherry Blossom Series"));
+        products.add(new Product("P3", "Zimomo", "Literally a labubu with a tail", 999.99, 7, "Popmart",
+                "The Zimomo Collection"));
+        products.add(new Product("P4", "Dino", "A dinosaur", 799.99, 5, "Popmart",
+                "The Dino Collection"));
+        products.add(new Product("S1", "Cinnamoroll", "Cute little baby", 499.99, 15, "Sanrio",
+                "Special Cinnamoroll Plush"));
+        products.add(new Product("S2", "Hello Kitty", "A cat-like human", 299.99, 30, "Sanrio",
+                "Hello Kitty Anniversary Edition"));
+        products.add(new Product("S3", "Pompompurin", "A dog made of pudding", 249.99, 12, "Sanrio",
+                "Pompompurin Bakery Series"));
+        products.add(new Product("S4", "Melody", "Not the one in our group", 349.99, 18, "Sanrio",
+                "My Melody Sweet Series"));
+        products.add(new Product("PK1", "Pikachu", "Electric mouse", 199.99, 25, "Pokemon",
+                "Pikachu Special Edition"));
+        products.add(new Product("PK2", "Eevee", "A cute little fox (Phoebe's fav)", 299.99, 22, "Pokemon",
+                "Eevee Special Edition"));
+        products.add(new Product("PK3", "Jigglypuff", "A dedicated singer", 599.99, 6, "Pokemon",
+                "Jigglypuff Special Edition"));
+        products.add(new Product("PK4", "Squirtle", "A squirting turtle", 399.99, 10, "Pokemon",
+                "Squirtle Special Edition"));
         products.add(
                 new Product("T1", "Totoro", "A forest spirit", 399.99, 5, "Studio Ghibli", "Totoro Forest Edition"));
-        products.add(
-                new Product("T2", "Spirited Away", "A spirit world", 399.99, 8, "Studio Ghibli",
-                        "Spirited Away Collector's Edition"));
-        products.add(
-                new Product("T3", "Kiki", "A witch in training", 499.99, 4, "Studio Ghibli",
-                        "Kiki's Delivery Service Edition"));
-        products.add(
-                new Product("T4", "Howl", "A wizard with a heart", 499.99, 3, "Studio Ghibli",
-                        "Howl's Moving Castle Edition"));
+        products.add(new Product("T2", "Spirited Away", "A spirit world", 399.99, 8, "Studio Ghibli",
+                "Spirited Away Collector's Edition"));
+        products.add(new Product("T3", "Kiki", "A witch in training", 499.99, 4, "Studio Ghibli",
+                "Kiki's Delivery Service Edition"));
+        products.add(new Product("T4", "Howl", "A wizard with a heart", 499.99, 3, "Studio Ghibli",
+                "Howl's Moving Castle Edition"));
 
         // Pass the shared product list to ManageProduct
         ManageProduct manageProduct = new ManageProduct(products);
@@ -202,17 +187,23 @@ public class OnlineShoppingSystem {
 
                                 boolean shoppingCategory = true;
                                 while (shoppingCategory) {
-                                    System.out.println("\nProducts in " + selectedCategory + ":");
+                                    System.out.println("\n===================================================================================");
+                                    System.out.println("                           Products in " + selectedCategory);
+                                    System.out.println("===================================================================================");
+                                    System.out.printf("%-5s %-10s %-20s %-10s %-30s\n", "No.", "ID", "Name", "Price",
+                                            "Description");
+                                    System.out.println("-----------------------------------------------------------------------------------");
+
                                     for (int i = 0; i < categoryProducts.size(); i++) {
                                         Product p = categoryProducts.get(i);
-                                        System.out.printf("%-10s %-20s $%-10.2f [%s]\n", p.getProductID(),
-                                                p.getProductName(), p.getPrice(), p.getDescription());
+                                        System.out.printf("%-5d %-10s %-20s $%-9.2f %-30s\n",
+                                                (i + 1), p.getProductID(), p.getProductName(), p.getPrice(),
+                                                p.getDescription());
                                     }
-                                    System.out.println((categoryProducts.size() + 1) + ". Back to Categories"); // Back
-                                                                                                                // as a
-                                                                                                                // number
+                                    System.out
+                                            .println("-----------------------------------------------------------------------------------");
+                                    System.out.println((categoryProducts.size() + 1) + ". Back to Categories");
                                     System.out.print("Select a product by number: ");
-
                                     String input = scanner.nextLine();
 
                                     int productChoice;
