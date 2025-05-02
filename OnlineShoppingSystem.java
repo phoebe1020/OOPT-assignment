@@ -92,7 +92,7 @@ public class OnlineShoppingSystem {
         products.add(new Product("T4", "Howl", "A wizard with a heart", 499.99, 3, "Studio Ghibli",
                 "Howl's Moving Castle Edition"));
 
-        // Pass the shared product list to ManageProduct
+        // Pass the shared list to Manage
         ManageProduct manageProduct = new ManageProduct(products);
         ManageCustomer manageCustomer = new ManageCustomer(customers);
         ManageOrder manageOrder = new ManageOrder(orderList);
@@ -491,13 +491,6 @@ public class OnlineShoppingSystem {
                                     break;
 
                                 case 5:
-                                    manageCustomer.manageCustomerMenu();
-                                    System.out.println("-------------------");
-                                    System.out.println("Press Enter to return to the Admin Menu...");
-                                    scanner.nextLine(); // Wait for Enter
-                                    break;
-
-                                case 6:
                                     System.out.println("Logging out...");
                                     adminRunning = false;
                                     break;
