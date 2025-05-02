@@ -176,16 +176,14 @@ public class Order {
             System.out.println("Order cannot be completed. Current status: " + status);
             return;
         }
-
+    
+        // Assume admin verified payment is already done
         double total = calculateTotal();
-        this.payment = new Payment(this.orderId, total);
-
-        if (payment.processPayment(customer)) {
-            this.status = STATUS_COMPLETED;
-            updateInventory();
-            System.out.println("Order completed successfully! Order ID: " + orderId);
-        } else {
-            System.out.println("Payment failed. Order not completed.");
-        }
+        this.payment = new Payment(this.orderId, total); // optional: record payment for tracking
+        this.status = STATUS_COMPLETED;
+        updateInventory();
+    
+        System.out.println("Order completed successfully by admin. Order ID: " + orderId);
     }
+    
 }

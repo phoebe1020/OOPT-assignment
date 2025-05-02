@@ -258,7 +258,8 @@ public class OnlineShoppingSystem {
                         case 2: // === View Order History ===
                         displayOrderHistory(loggedInCustomer);
                         System.out.println("Press Enter to return to the menu...");
-                        scanner.nextLine(); // Wait for Enter
+                        scanner.nextLine();
+                        scanner.nextLine();
                         break;
 
                         case 3:// === View Cart ===
@@ -393,7 +394,45 @@ public class OnlineShoppingSystem {
                                     break;
 
                                 case 2:
-                                    displayOrderList(); // Call the method to display orders
+                                    // Call your existing method to display the orders
+                                    displayOrderList();
+
+                                    // Check if there are any PENDING orders
+                                    boolean hasPending = false;
+                                    for (Order order : orderList) {
+                                        if (order.getStatus().equals(Order.STATUS_PENDING)) {
+                                            hasPending = true;
+                                            break;
+                                        }
+                                    }
+
+                                    if (!orderList.isEmpty()) {
+                                        if (hasPending) {
+                                            System.out.print("Do you want to complete an order? (y/n): ");
+                                            String response = scanner.nextLine().trim().toLowerCase();
+
+                                            if (response.equals("y")) {
+                                                boolean orderCompleted = false;
+
+                                                for (Order order : orderList) {
+                                                    if (order.getStatus().equals(Order.STATUS_PENDING)) {
+                                                        order.completeOrder(); // Use the built-in method
+                                                        orderCompleted = true;
+                                                        break; // Stop after completing the first pending order
+                                                    }
+                                                }
+
+                                                if (!orderCompleted) {
+                                                    System.out.println("No pending orders to complete.");
+                                                }
+                                            }
+                                        } else {
+                                            System.out.println("No pending orders to complete.");
+                                        }
+                                    } else {
+                                        System.out.println("No orders available.");
+                                    }
+
                                     System.out.println("Press Enter to return to the Admin Menu...");
                                     scanner.nextLine(); // Wait for Enter
                                     break;
