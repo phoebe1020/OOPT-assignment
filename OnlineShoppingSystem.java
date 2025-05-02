@@ -42,10 +42,10 @@ public class OnlineShoppingSystem {
 
         // Create customer
         List<Customer> customers = new ArrayList<>();
-        customers.add(new Customer("11111111","C1" , "Siow", "siow@gmail.com", "012345678", "123 Home"));
-        customers.add(new Customer("22222222","C2", "Melody", "melodiddy@gmail.com", "013456789", "123 Klang"));
-        customers.add(new Customer("33333333","C3", "Phoebe", "fakeh@gmail.com", "014567890", "123 Tarumt"));
-        customers.add(new Customer("44444444","C4", "Lee", "lee@gmail.com", "015678901", "Lee Jeans"));
+        customers.add(new Customer("11111111", "C1", "Siow", "siow@gmail.com", "012345678", "123 Home"));
+        customers.add(new Customer("22222222", "C2", "Melody", "melodiddy@gmail.com", "013456789", "123 Klang"));
+        customers.add(new Customer("33333333", "C3", "Phoebe", "fakeh@gmail.com", "014567890", "123 Tarumt"));
+        customers.add(new Customer("44444444", "C4", "Lee", "lee@gmail.com", "015678901", "Lee Jeans"));
         // Create admin users
         Admin[] admins = new Admin[3];
         admins[0] = new Admin("AMD001", "Xavier", "xavier@gmail.com", "011111111", "Meow Street", "Xavier123");
@@ -145,9 +145,10 @@ public class OnlineShoppingSystem {
                 while (customerRunning) {
                     System.out.println("\n--- POP MART MENU ---");
                     System.out.println("1. Order Products");
-                    System.out.println("2. View Cart");
-                    System.out.println("3. Review");
-                    System.out.println("4. Exit");
+                    System.out.println("2. View Order History");
+                    System.out.println("3. View Cart");
+                    System.out.println("4. Review");
+                    System.out.println("5. Logout");
                     System.out.print("Choose an option: ");
                     int mainChoice = scanner.nextInt();
 
@@ -202,12 +203,15 @@ public class OnlineShoppingSystem {
 
                                 boolean shoppingCategory = true;
                                 while (shoppingCategory) {
-                                    System.out.println("\n===================================================================================");
+                                    System.out.println(
+                                            "\n===================================================================================");
                                     System.out.println("                           Products in " + selectedCategory);
-                                    System.out.println("===================================================================================");
+                                    System.out.println(
+                                            "===================================================================================");
                                     System.out.printf("%-5s %-10s %-20s %-10s %-30s\n", "No.", "ID", "Name", "Price",
                                             "Description");
-                                    System.out.println("-----------------------------------------------------------------------------------");
+                                    System.out.println(
+                                            "-----------------------------------------------------------------------------------");
 
                                     for (int i = 0; i < categoryProducts.size(); i++) {
                                         Product p = categoryProducts.get(i);
@@ -216,7 +220,8 @@ public class OnlineShoppingSystem {
                                                 p.getDescription());
                                     }
                                     System.out
-                                            .println("-----------------------------------------------------------------------------------");
+                                            .println(
+                                                    "-----------------------------------------------------------------------------------");
                                     System.out.println((categoryProducts.size() + 1) + ". Back to Categories");
                                     System.out.print("Select a product by number: ");
                                     String input = scanner.nextLine();
@@ -264,88 +269,93 @@ public class OnlineShoppingSystem {
                             }
                             break;
 
-                        case 2: // === View Cart ===
-                            System.out.println("\n--- Your Cart ---");
-                            loggedInCustomer.viewCart(); // You should implement this method
+                        case 2: // === View Order History ===
+                        displayOrderHistory(loggedInCustomer);
+                        System.out.println("Press Enter to return to the menu...");
+                        scanner.nextLine(); // Wait for Enter
+                        break;
 
-                            System.out.print("Do you want to proceed to payment? (Y/N): ");
-                            scanner.nextLine(); // consume newline
-                            String confirm = scanner.nextLine();
-                            if (confirm.equalsIgnoreCase("N")) {
-                                System.out.println("Returning to menu...");
-                                break; // Return to menu
+                        case 3:// === View Cart ===
+                        System.out.println("\n--- Your Cart ---");
+                        loggedInCustomer.viewCart(); // You should implement this method
+
+                        System.out.print("Do you want to proceed to payment? (Y/N): ");
+                        scanner.nextLine(); // consume newline
+                        String confirm = scanner.nextLine();
+                        if (confirm.equalsIgnoreCase("N")) {
+                            System.out.println("Returning to menu...");
+                            break; // Return to menu
+                        }
+                        if (confirm.equalsIgnoreCase("Y")) {
+                            String orderId = UUID.randomUUID().toString();
+                            double totalAmount = loggedInCustomer.getShoppingCart().getTotalAmountWithTax();
+
+                            if (totalAmount <= 0) {
+                                System.out.println(
+                                        "Your cart is empty or the total amount is invalid. Cannot proceed to payment.");
+                                shopping = false; // Exit the payment process
                             }
-                            if (confirm.equalsIgnoreCase("Y")) {
-                                String orderId = UUID.randomUUID().toString();
-                                double totalAmount = loggedInCustomer.getShoppingCart().getTotalAmountWithTax();
 
-                                if (totalAmount <= 0) {
-                                    System.out.println(
-                                            "Your cart is empty or the total amount is invalid. Cannot proceed to payment.");
-                                    shopping = false; // Exit the payment process
-                                }
+                            // === Create Payment Object ===
+                            Payment payment = new Payment(
+                                    orderId,
+                                    totalAmount,
+                                    loggedInCustomer.getUserId(),
+                                    loggedInCustomer.getName(),
+                                    loggedInCustomer.getEmail(),
+                                    loggedInCustomer.getPhone(),
+                                    loggedInCustomer.getAddress());
 
-                                // === Create Payment Object ===
-                                Payment payment = new Payment(
-                                        orderId,
-                                        totalAmount,
-                                        loggedInCustomer.getUserId(),
-                                        loggedInCustomer.getName(),
-                                        loggedInCustomer.getEmail(),
-                                        loggedInCustomer.getPhone(),
-                                        loggedInCustomer.getAddress());
+                            // === Select Payment Method ===
+                            System.out.println("\nSelect Payment Method:");
+                            System.out.println("1. Credit Card");
+                            System.out.println("2. Debit Card");
+                            System.out.println("3. PayPal");
+                            System.out.println("4. Bank Transfer");
+                            System.out.print("Your choice: ");
+                            int methodChoice = scanner.nextInt();
+                            scanner.nextLine(); // consume newline
 
-                                // === Select Payment Method ===
-                                System.out.println("\nSelect Payment Method:");
-                                System.out.println("1. Credit Card");
-                                System.out.println("2. Debit Card");
-                                System.out.println("3. PayPal");
-                                System.out.println("4. Bank Transfer");
-                                System.out.print("Your choice: ");
-                                int methodChoice = scanner.nextInt();
-                                scanner.nextLine(); // consume newline
+                            String method = null;
+                            switch (methodChoice) {
+                                case 1:
+                                    method = Payment.PAYMENT_METHOD_CREDIT_CARD;
+                                    break;
+                                case 2:
+                                    method = Payment.PAYMENT_METHOD_DEBIT_CARD;
+                                    break;
+                                case 3:
+                                    method = Payment.PAYMENT_METHOD_PAYPAL;
+                                    break;
+                                case 4:
+                                    method = Payment.PAYMENT_METHOD_BANK_TRANSFER;
+                                    break;
+                                default:
+                                    System.out.println("Invalid payment method. Payment aborted.");
+                                    return;
+                            }
 
-                                Payment.PaymentMethod method = null;
-                                switch (methodChoice) {
-                                    case 1:
-                                        payment.selectPaymentMethod(Payment.PaymentMethod.CREDIT_CARD);
-                                        break;
-                                    case 2:
-                                        payment.selectPaymentMethod(Payment.PaymentMethod.DEBIT_CARD);
-                                        break;
-                                    case 3:
-                                        payment.selectPaymentMethod(Payment.PaymentMethod.PAYPAL);
-                                        break;
-                                    case 4:
-                                        payment.selectPaymentMethod(Payment.PaymentMethod.BANK_TRANSFER);
-                                        break;
-                                    default:
-                                        System.out.println("Invalid payment method. Payment aborted.");
-                                        return;// Abort payment process
-                                }
+                            // === Process Payment ===
+                            payment.setMethod(method);
+                            boolean success = payment.processPayment(loggedInCustomer);
 
-                                // === Process Payment ===
-                                payment.selectPaymentMethod(method);
-
-                                boolean success = payment.processPayment(loggedInCustomer);
-
-                                if (!success) {
-                                    System.out.print("Retry payment? (Y/N): ");
-                                    String retry = scanner.nextLine();
-                                    if (retry.equalsIgnoreCase("Y")) {
-                                        success = payment.retryPayment(loggedInCustomer);
-                                        if (success) {
-                                            System.out.println("Payment retry successful.");
-                                        } else {
-                                            System.out.println("Payment retry failed.");
-                                        }
+                            if (!success) {
+                                System.out.print("Retry payment? (Y/N): ");
+                                String retry = scanner.nextLine();
+                                if (retry.equalsIgnoreCase("Y")) {
+                                    success = payment.retryPayment(loggedInCustomer);
+                                    if (success) {
+                                        System.out.println("Payment retry successful.");
+                                    } else {
+                                        System.out.println("Payment retry failed.");
                                     }
                                 }
+                            }
 
-                                System.out.println("\n--- Payment Summary ---");
-                                System.out.println(payment);
+                            System.out.println("\n--- Payment Summary ---");
+                            System.out.println(payment);
 
-                                if (payment.getStatus() == Payment.TransactionStatus.SUCCESS) {
+                                if (payment.getStatus() == Payment.STATUS_SUCCESS) {
                                     System.out.print("Do you want to request a refund? (Y/N): ");
                                     String refundChoice = scanner.nextLine();
                                     if (refundChoice.equalsIgnoreCase("Y")) {
@@ -357,7 +367,7 @@ public class OnlineShoppingSystem {
                             }
                             break;
 
-                        case 3: // === Review ===
+                        case 4: // === Review ===
                         boolean reviewRunning = true;
                         while (reviewRunning) {
                             System.out.println("\n--- Review Menu ---");
@@ -415,7 +425,8 @@ public class OnlineShoppingSystem {
                         }
                             break;
 
-                        case 4: // === Exit ===
+
+                        case 5: // === Exit ===
                             System.out.println("Thank you for visiting POP MART. Goodbye!");
                             customerRunning = false;
                             break;
@@ -477,10 +488,17 @@ public class OnlineShoppingSystem {
                                     System.out.println("Total Admins: " + admins.length);
                                     System.out.println("-------------------");
                                     System.out.println("Press Enter to return to the Admin Menu...");
-                                    scanner.nextLine(); 
+                                    scanner.nextLine(); // Wait for Enter
+                                    break;
+
+                                    case 5:
+                                    manageCustomer.manageCustomerMenu();
+                                    System.out.println("-------------------");
+                                    System.out.println("Press Enter to return to the Admin Menu...");
+                                    scanner.nextLine(); // Wait for Enter
                                         break; 
                                         
-                                        case 5:
+                                        case 6:
                                     System.out.println("Logging out...");
                                     adminRunning = false;
                                     break;
@@ -497,8 +515,8 @@ public class OnlineShoppingSystem {
                     System.out.println("Invalid admin ID or password. Please try again.");
                 }
             } else if (menuChoice == 3) {
-                 // === Register a new user ===
-                 while (true) {
+                // === Register a new user ===
+                while (true) {
                     System.out.print("Enter your name: ");
                     String name = scanner.nextLine();
 
@@ -511,22 +529,25 @@ public class OnlineShoppingSystem {
                             break;
                         }
                     }
-                    if (duplicate) continue;
+                    if (duplicate)
+                        continue;
 
                     String email;
                     while (true) {
                         System.out.print("Enter your email: ");
                         email = scanner.nextLine();
-                        if (email.endsWith("@gmail.com")) break;
+                        if (email.endsWith("@gmail.com"))
+                            break;
                         System.out.println("Email must end with '@gmail.com'. Please try again.");
                     }
 
                     String phone;
                     while (true) {
-                       System.out.print("Enter your phone number: ");
-                       phone = scanner.nextLine();
-                       if (phone.matches("\\d{10,}")) break; // Only digits, at least 10 digits
-                       System.out.println("Phone number must be at least 10 digits and contain only numbers.");
+                        System.out.print("Enter your phone number: ");
+                        phone = scanner.nextLine();
+                        if (phone.matches("\\d{10,}"))
+                            break; // Only digits, at least 10 digits
+                        System.out.println("Phone number must be at least 10 digits and contain only numbers.");
                     }
 
                     System.out.print("Enter your address: ");
@@ -536,11 +557,11 @@ public class OnlineShoppingSystem {
                     while (true) {
                         System.out.print("Create password (8 characters): ");
                         password = scanner.nextLine();
-                        if (password.length() == 8) break;
+                        if (password.length() == 8)
+                            break;
                         System.out.println("Password must be exactly 8 characters.");
                     }
 
-                    
                     // Check for duplicate password
                     boolean passwordDuplicate = false;
                     for (Customer c : customers) {
@@ -550,7 +571,7 @@ public class OnlineShoppingSystem {
                             break;
                         }
                     }
-                
+
                     if (passwordDuplicate) {
                         System.out.println("Please re-enter your details to avoid duplicate password.\n");
                         continue; // Ask for input again, don't exit the loop
@@ -564,7 +585,7 @@ public class OnlineShoppingSystem {
                     customers.add(newCustomer);
                     System.out.println("Registration successful! You can now log in.\n");
                     System.out.println("Press Enter to return to the main menu...");
-                    scanner.nextLine(); 
+                    scanner.nextLine();
                     break; // Exit loop after successful registration
                 }
             } else if (menuChoice == 4) {
@@ -593,4 +614,28 @@ public class OnlineShoppingSystem {
             System.out.println("-------------------");
         }
     }
+
+    private static void displayOrderHistory(Customer customer) {
+        List<Order> customerOrders = new ArrayList<>();
+    
+        // Filter orders by customer
+        for (Order order : orderList) {
+            if (order.getCustomerName().equals(customer.getName())) {
+                customerOrders.add(order);
+            }
+        }
+    
+        if (customerOrders.isEmpty()) {
+            System.out.println("You have not placed any orders yet.");
+            return;
+        }
+    
+        System.out.println("\n--- Order History ---");
+        for (Order order : customerOrders) {
+            System.out.println(order.getOrderHistoryDetails()); 
+            System.out.println("----------------------");
+        }
+    }
+    
 }
+
