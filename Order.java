@@ -136,7 +136,7 @@ public class Order {
     }
 
     public String getOrderSummary() {
-        return String.format("Order ID: %s | Customer: %s | Total: RM%.2f | Status: %s",
+        return String.format("\nOrder ID: %s \nCustomer: %s  \nTotal: $%.2f  \nStatus: %s",
                 orderId, customer.getName(), getTotalPrice(), status);
     }
 
