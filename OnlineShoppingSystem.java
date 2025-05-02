@@ -266,10 +266,11 @@ public class OnlineShoppingSystem {
                             break;
 
                         case 2: // === View Order History ===
-                            displayOrderHistory(loggedInCustomer);
-                            System.out.println("Press Enter to return to the menu...");
-                            scanner.nextLine(); // Wait for Enter
-                            break;
+                        displayOrderHistory(loggedInCustomer);
+                        System.out.println("Press Enter to return to the menu...");
+                        scanner.nextLine();
+                        scanner.nextLine();
+                        break;
 
                         case 3:// === View Cart ===
                             System.out.println("\n--- Your Cart ---");
